@@ -3,38 +3,38 @@
 <head>
 	<meta charset="UTF-8">
 	<title>心理栈</title>
-	<style>
-		/*清除内外边距*/
-		*{
-			margin: 0;
-			padding: 0;
-		}
-
-	</style>
+	<link rel="stylesheet" href="../uploads/bootstrap3.css">
+	<link rel="stylesheet" href="css/base.css">
+	<link rel="stylesheet" href="css/main.css">
+	<script src="../uploads/jquery.js"></script>
 	<link rel="stylesheet" type="text/css" href="css/zhuyemian.css">
 </head>
 <body>
+<div class="wel-nav">
+        <script type="">
+            $('.wel-nav').load('common/nav.html')
+        </script>
+</div>
 
 <!-- 轮播图 -->
-
-<div class="swiper_container">
+<div class="content mt30">
+	<div class="swiper_container">
 	
-	<div class="button">
-		<a class="button-left"> </a>
-		<a class="button-right"></a>
+		<div class="button">
+			<a class="button-left"> </a>
+			<a class="button-right"></a>
+		</div>
+			<ul class="yuandian">
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+				<li></li>
+			</ul>
 	</div>
-		<ul class="yuandian">
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-			<li></li>
-		</ul>
-</div>
 		
-
-		<!-- 热文推荐部分 -->
-		<div class="rewen">
+	<!-- 热文推荐部分 -->
+	<div class="rewen">
 			<p>热文推荐:</p>
 			<div class="rewen-nav">
 				<div>情感交流</div>
@@ -84,10 +84,9 @@
 					<div class="rewen-neirong"><p>这可是置顶的文章内容的一部分的显示，你可要好好看，后面没出现的可能就省略掉了，为了凑字数现在写了这么多……</p></div>
 				</div>
 			</div>
-		</div>
+	</div>
 
-
-		<div class="luntan">
+	<div class="luntan">
 			<p>心灵互诉:</p>
 			<div class="luntan-neirong">
 				<div class="neirong-w">
@@ -163,14 +162,21 @@
 					</div>
 				</div>
 			</div>
-		</div>
+	</div>
 
-		<div class="music">
+	<div class="music">
 			<p>幻想城堡(音乐列表)</p>
 			<a href="#"><div class="music-l">舒缓人心情的音乐</div></a>
 			<a href=""><div class="music-r">激动人心的音乐</div></a>
 			<div class="music-b">下面的部分</div>
-		</div>
+	</div>
+
+</div>
+<div class="wel-footer">
+	<script type="">
+    	$('.wel-footer').load('common/footer.html')
+    </script>
+</div>
 
 </body>
 </html>

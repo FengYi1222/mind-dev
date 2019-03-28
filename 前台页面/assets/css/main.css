@@ -1,0 +1,119 @@
+* {
+	margin: 0;
+	padding: 0;
+}
+	.content {
+			margin-top: 72px;
+		}
+
+/*顶部*/
+
+		.wel-nav {
+			width: 100%;
+			position: fixed;
+			background-color: #fff;
+			height: 72px;
+			min-width: 1200px;
+			z-index: 1000;
+			border-bottom: 1px solid #e1e1e1;
+			margin-top: -72px;
+		}
+		.wel-nav .zhongjian {
+			/*padding-top: 30px;*/
+			/*height: 72px;*/
+			height: 100%;
+			width: 980px;
+			margin: 0 auto;
+		} 
+		.wel-nav .navbar {
+			width: 500px;
+		}
+		.wel-nav .navbar li {
+			float: left;
+			list-style: none;
+		}
+		.wel-nav .navbar span{
+			color: #eee;
+		}
+		.wel-nav .navbar li a:hover {
+			color: #0b8bff;
+		}
+		.wel-nav .navbar span {
+			float: left;
+			margin-left: 8px;
+			margin-right: 8px;
+		}
+		.wel-nav .search-input {
+			width: 200px;
+			height: 30px;
+			border: 1px solid #eee;
+			border-radius: 3px;
+			background-color: #efefef;
+			margin-top: 15px;
+			padding: 5px;
+			padding-left: 10px;
+		}
+		.wel-nav .search{
+			content:'';
+			width: 16px;
+			height: 16px;
+			background:  url(images/search.png) 0 0 no-repeat;
+			-webkit-background-size: 16px 16px;
+			background-size: 16px 16px;
+			float: left;
+			position: relative;
+			margin-top: 22px;
+			margin-left: -26px;
+		}
+		.wel-nav .search:hover {
+			cursor: pointer;
+		}
+		.wel-nav .avatar-container {
+			float: left;
+			position: relative;
+			width: 80px;
+			height: 72px;
+			margin-left: 50px;
+			/*background-color: pink;*/
+		}
+		.wel-nav .avatar-container img{
+			width: 30px;
+			height: 30px;
+			border-radius: 50%;
+			background-color: pink;
+			float: left;
+			margin-left: 25px;
+			margin-top: 15px;
+		}
+		.wel-nav .avatar-container img:hover{
+			cursor: pointer;
+		}
+		.wel-nav .show-list {
+			width: 100%;
+			position: absolute;
+			top: 45px;
+			left: 76px;
+			z-index: 2;
+			display: none;
+			z-index: 1000;
+		}
+		.wel-nav .show-list ul {
+			width: 100%;
+			/*border: 1px solid pink;*/
+		}
+		.wel-nav .show-list .list-item {
+			display: block;
+			width: 160px;
+			height: 40px;
+			line-height: 40px;
+			text-align: center;
+			background-color: #fff;
+			border: 1px solid #eee;
+			box-shadow: 0 4px 14px 0 rgba(0,0,0,.23);
+		}
+		.wel-nav .show-list .list-item:hover {
+			cursor: pointer;
+			background-color: #efefef;
+		}
+
+/*底部*/

@@ -2,6 +2,9 @@
 			margin: 0;
 			padding: 0;
 		}
+		.content {
+			margin-top: 72px;
+		}
 		/*轮播图*/
 
 		/*设置背景图（这样可以在上面设置其余盒子），在这里不要设置img*/
@@ -12,6 +15,8 @@
 			background-repeat: no-repeat;
 			background-position: center;
 			position: relative;
+			background-color: #eee;
+			/*margin-top: 72px;*/
 			/*min-width: 1500px;*/
 		}
 		/*设置按钮盒子，方便后期对两个按钮的操作，可以不设置，但是这样后期一些效果或者功能好加一点*/

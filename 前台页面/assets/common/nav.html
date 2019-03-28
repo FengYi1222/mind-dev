@@ -1,0 +1,47 @@
+		<div class="zhongjian">
+			<span class="mt5 fl mr20 mt20">心理栈</span>
+			<ul class="fl mt5 mt20 navbar">
+				<li><a href="javascript:;">首页</a></li>
+				<span>|</span>
+				<li><a href="javascript:;">男女情感</a></li>
+				<span>|</span>
+				<li><a href="javascript:;">人际交往</a></li>
+				<span>|</span>
+				<li><a href="javascript:;">自我提升</a></li>
+				<span>|</span>
+				<li><a href="javascript:;">生活幸福</a></li>
+				<span>|</span>
+				<li><a href="javascript:;">心理互诉</a></li>
+				<span>|</span>
+				<li><a href="javascript:;">音乐栏目</a></li>
+			</ul>
+			<input type="text" class="fl ml30 search-input" placeholder="搜索">
+			<div class="search">
+				
+			</div>	
+			<div class="avatar-container">
+				<img src="" alt="">
+				<div class="show-list ">
+					<ul >
+						<il class="list-item"><a href="javascript:;">管理中心</a></il>
+						<il class="list-item"><a href="javascript:;">个人主页</a></il>
+						<il class="list-item"><a href="javascript:;">消息提示</a></il>
+						<il class="list-item"><a href="javascript:;">切换账号</a></il>
+						<il class="list-item"><a href="javascript:;">退出</a></il>
+					</ul>
+				</div>
+			</div>
+		</div> 
+	<script>
+	$(document).ready(function(){
+		$('.avatar-container').mouseenter(function(){
+            $('.show-list').show();
+        })
+        $('.avatar-container .show-list').mouseenter(function(){
+            $('.show-list').show();
+        })
+        $('.avatar-container').mouseleave(function(){
+            $('.show-list').hide();
+        })
+    })
+	</script>

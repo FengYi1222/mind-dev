@@ -4,11 +4,21 @@
 <head>
     <meta charset="UTF-8">
     <title>心理杂志</title>
+    <link rel="stylesheet" href="../uploads/bootstrap3.css">
+    <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="../uploads/jquery.js"></script>
     <link rel="stylesheet" href="css/wenzhang.css">
 </head>
 
 <body>
-    <div class="main">
+    <div class="wel-nav">
+        <script type="">
+            $('.wel-nav').load('common/nav.html')
+        </script>
+    </div>
+    <div class="content clearfix">
+        <div class="main">
         <!-- 这个尝试使用瀑布流 -->
         <div class="wz-l">
             <p>发布时间排序的文章</p>
@@ -91,6 +101,12 @@
 
         </div>
 
+    </div>
+<div class="wel-footer">
+    <script type="">
+        $('.wel-footer').load('common/footer.html')
+    </script>
+</div>
 </body>
 
 </html>
