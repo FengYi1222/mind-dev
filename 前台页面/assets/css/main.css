@@ -57,7 +57,7 @@
 			content:'';
 			width: 16px;
 			height: 16px;
-			background:  url(images/search.png) 0 0 no-repeat;
+			background:  url(../images/search.png) 0 0 no-repeat;
 			-webkit-background-size: 16px 16px;
 			background-size: 16px 16px;
 			float: left;
