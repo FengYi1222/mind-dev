@@ -34,7 +34,7 @@ $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
 // $page = $page < 1 ? 1 : $page;
 if ($page < 1) {
   // 跳转到第一页
-  header('Location: /admin/posts.php?page=1' . $search);
+  header('Location: /后台页面/admin/posts.php?page=1' . $search);
 }
 
 // 只要是处理分页功能一定会用到最大的页码数
@@ -47,7 +47,7 @@ $total_pages = (int)ceil($total_count / $size);
 // $page = $page > $total_pages ? $total_pages : $page;
 if ($page > $total_pages) {
   // 跳转到第最后页
-  header('Location: /admin/posts.php?page=' . $total_pages . $search);
+  header('Location: /后台页面/admin/posts.php?page=' . $total_pages . $search);
 }
 
 // 获取全部数据
@@ -126,11 +126,11 @@ function convert_date ($created) {
 <head>
   <meta charset="utf-8">
   <title>Posts &laquo; Admin</title>
-  <link rel="stylesheet" href="/static/assets/vendors/bootstrap/css/bootstrap.css">
-  <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="/static/assets/vendors/nprogress/nprogress.css">
-  <link rel="stylesheet" href="/static/assets/css/admin.css">
-  <script src="/static/assets/vendors/nprogress/nprogress.js"></script>
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/nprogress/nprogress.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/css/admin.css">
+  <script src="/后台页面/static/assets/vendors/nprogress/nprogress.js"></script>
 </head>
 <body>
   <script>NProgress.start()</script>
@@ -201,7 +201,7 @@ function convert_date ($created) {
             <td class="text-center"><?php echo convert_status($item['status']); ?></td>
             <td class="text-center">
               <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
-              <a href="/admin/post-delete.php?id=<?php echo $item['id']; ?>" class="btn btn-danger btn-xs">删除</a>
+              <a href="/后台页面/admin/post-delete.php?id=<?php echo $item['id']; ?>" class="btn btn-danger btn-xs">删除</a>
             </td>
           </tr>
           <?php endforeach ?>
@@ -213,8 +213,8 @@ function convert_date ($created) {
   <?php $current_page = 'posts'; ?>
   <?php include 'inc/sidebar.php'; ?>
 
-  <script src="/static/assets/vendors/jquery/jquery.js"></script>
-  <script src="/static/assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="/后台页面/static/assets/vendors/jquery/jquery.js"></script>
+  <script src="/后台页面/static/assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script>NProgress.done()</script>
 </body>
 </html>

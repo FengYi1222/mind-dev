@@ -10,11 +10,11 @@ xiu_get_current_user();
 <head>
   <meta charset="utf-8">
   <title>Slides &laquo; Admin</title>
-  <link rel="stylesheet" href="/static/assets/vendors/bootstrap/css/bootstrap.css">
-  <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="/static/assets/vendors/nprogress/nprogress.css">
-  <link rel="stylesheet" href="/static/assets/css/admin.css">
-  <script src="/static/assets/vendors/nprogress/nprogress.js"></script>
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/nprogress/nprogress.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/css/admin.css">
+  <script src="/后台页面/static/assets/vendors/nprogress/nprogress.js"></script>
 </head>
 <body>
   <script>NProgress.start()</script>
@@ -71,7 +71,7 @@ xiu_get_current_user();
             <tbody>
               <tr>
                 <td class="text-center"><input type="checkbox"></td>
-                <td class="text-center"><img class="slide" src="/static/uploads/slide_1.jpg"></td>
+                <td class="text-center"><img class="slide" src="/后台页面/static/uploads/slide_1.jpg"></td>
                 <td>XIU功能演示</td>
                 <td>#</td>
                 <td class="text-center">
@@ -80,7 +80,7 @@ xiu_get_current_user();
               </tr>
               <tr>
                 <td class="text-center"><input type="checkbox"></td>
-                <td class="text-center"><img class="slide" src="/static/uploads/slide_2.jpg"></td>
+                <td class="text-center"><img class="slide" src="/后台页面/static/uploads/slide_2.jpg"></td>
                 <td>XIU功能演示</td>
                 <td>#</td>
                 <td class="text-center">
@@ -97,8 +97,8 @@ xiu_get_current_user();
   <?php $current_page = 'slides'; ?>
   <?php include 'inc/sidebar.php'; ?>
 
-  <script src="/static/assets/vendors/jquery/jquery.js"></script>
-  <script src="/static/assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="/后台页面/static/assets/vendors/jquery/jquery.js"></script>
+  <script src="/后台页面/static/assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script>NProgress.done()</script>
 </body>
 </html>

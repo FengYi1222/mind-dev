@@ -19,4 +19,4 @@ $id = $_GET['id'];
 $rows = xiu_execute('delete from categories where id in (' . $id . ');');
 
 // if ($rows > 0) {}
-header('Location: /admin/categories.php');
+header('Location: /后台页面/admin/categories.php');

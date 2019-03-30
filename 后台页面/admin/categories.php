@@ -82,11 +82,11 @@ $categories = xiu_fetch_all('select * from categories;');
 <head>
   <meta charset="utf-8">
   <title>Categories &laquo; Admin</title>
-  <link rel="stylesheet" href="/static/assets/vendors/bootstrap/css/bootstrap.css">
-  <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="/static/assets/vendors/nprogress/nprogress.css">
-  <link rel="stylesheet" href="/static/assets/css/admin.css">
-  <script src="/static/assets/vendors/nprogress/nprogress.js"></script>
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/nprogress/nprogress.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/css/admin.css">
+  <script src="/后台页面/static/assets/vendors/nprogress/nprogress.js"></script>
 </head>
 <body>
   <script>NProgress.start()</script>
@@ -149,7 +149,7 @@ $categories = xiu_fetch_all('select * from categories;');
         <div class="col-md-8">
           <div class="page-action">
             <!-- show when multiple checked -->
-            <a id="btn_delete" class="btn btn-danger btn-sm" href="/admin/category-delete.php" style="display: none">批量删除</a>
+            <a id="btn_delete" class="btn btn-danger btn-sm" href="/后台页面/admin/category-delete.php" style="display: none">批量删除</a>
           </div>
           <table class="table table-striped table-bordered table-hover">
             <thead>
@@ -167,8 +167,8 @@ $categories = xiu_fetch_all('select * from categories;');
                 <td><?php echo $item['name']; ?></td>
                 <td><?php echo $item['slug']; ?></td>
                 <td class="text-center">
-                  <a href="/admin/categories.php?id=<?php echo $item['id']; ?>" class="btn btn-info btn-xs">编辑</a>
-                  <a href="/admin/category-delete.php?id=<?php echo $item['id']; ?>" class="btn btn-danger btn-xs">删除</a>
+                  <a href="/后台页面/admin/categories.php?id=<?php echo $item['id']; ?>" class="btn btn-info btn-xs">编辑</a>
+                  <a href="/后台页面/admin/category-delete.php?id=<?php echo $item['id']; ?>" class="btn btn-danger btn-xs">删除</a>
                 </td>
               </tr>
               <?php endforeach ?>
@@ -182,8 +182,8 @@ $categories = xiu_fetch_all('select * from categories;');
   <?php $current_page = 'categories'; ?>
   <?php include 'inc/sidebar.php'; ?>
 
-  <script src="/static/assets/vendors/jquery/jquery.js"></script>
-  <script src="/static/assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="/后台页面/static/assets/vendors/jquery/jquery.js"></script>
+  <script src="/后台页面/static/assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script>
     // 1. 不要重复使用无意义的选择操作，应该采用变量去本地化
     $(function ($) {

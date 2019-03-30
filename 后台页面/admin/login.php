@@ -58,8 +58,9 @@ function login () {
   // $_SESSION['current_login_user_id'] = $user['id'];
 
   // 一切OK 可以跳转
-  header('Location: /admin/');
+  header('Location: /后台页面/admin/');
 }
+
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   login();
@@ -77,16 +78,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
 <head>
   <meta charset="utf-8">
   <title>Sign in &laquo; Admin</title>
-  <link rel="stylesheet" href="/static/assets/vendors/bootstrap/css/bootstrap.css">
-  <link rel="stylesheet" href="/static/assets/vendors/animate/animate.css">
-  <link rel="stylesheet" href="/static/assets/css/admin.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/animate/animate.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/css/admin.css">
 </head>
 <body>
   <div class="login">
     <!-- 可以通过在 form 上添加 novalidate 取消浏览器自带的校验功能 -->
     <!-- autocomplete="off" 关闭客户端的自动完成功能 -->
     <form class="login-wrap<?php echo isset($message) ? ' shake animated' : ''; ?>" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" autocomplete="off" novalidate>
-      <img class="avatar" src="/static/assets/img/default.png">
+      <img class="avatar" src="/后台页面/static/assets/img/default.png">
       <!-- 作为一个优秀的页面开发人员，必须考虑一个页面的不同状态下展示的内容不一样的情况 -->
       <!-- 有错误信息时展示 -->
       <?php if (isset($message)): ?>
@@ -105,7 +106,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
       <button class="btn btn-primary btn-block">登 录</button>
     </form>
   </div>
-  <script src="/static/assets/vendors/jquery/jquery.js"></script>
+  <script src="/后台页面/static/assets/vendors/jquery/jquery.js"></script>
   <script>
     $(function ($) {
       // 1. 单独作用域
@@ -128,7 +129,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
         // 因为客户端的 JS 无法直接操作数据库，应该通过 JS 发送 AJAX 请求 告诉服务端的某个接口，
         // 让这个接口帮助客户端获取头像地址
 
-        $.get('/admin/api/avatar.php', { email: value }, function (res) {
+        $.get('/后台页面/admin/api/avatar.php', { email: value }, function (res) {
           // 希望 res => 这个邮箱对应的头像地址
           if (!res) return
           // 展示到上面的 img 元素上

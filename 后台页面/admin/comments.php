@@ -1,3 +1,4 @@
+
 <?php
 
 require_once '../functions.php';
@@ -10,11 +11,11 @@ xiu_get_current_user();
 <head>
   <meta charset="utf-8">
   <title>Comments &laquo; Admin</title>
-  <link rel="stylesheet" href="/static/assets/vendors/bootstrap/css/bootstrap.css">
-  <link rel="stylesheet" href="/static/assets/vendors/font-awesome/css/font-awesome.css">
-  <link rel="stylesheet" href="/static/assets/vendors/nprogress/nprogress.css">
-  <link rel="stylesheet" href="/static/assets/css/admin.css">
-  <script src="/static/assets/vendors/nprogress/nprogress.js"></script>
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/bootstrap/css/bootstrap.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/vendors/nprogress/nprogress.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/css/admin.css">
+  <script src="/后台页面/static/assets/vendors/nprogress/nprogress.js"></script>
 </head>
 <body>
   <script>NProgress.start()</script>
@@ -91,10 +92,10 @@ xiu_get_current_user();
 
       {{/for}}
   </script>
-  <script src="/static/assets/vendors/jquery/jquery.js"></script>
-  <script src="/static/assets/vendors/bootstrap/js/bootstrap.js"></script>
-  <script src="/static/assets/vendors/jsrender/jsrender.js"></script>
-  <script src="/static/assets/vendors/twbs-pagination/jquery.twbsPagination.js"></script>
+  <script src="/后台页面/static/assets/vendors/jquery/jquery.js"></script>
+  <script src="/后台页面/static/assets/vendors/bootstrap/js/bootstrap.js"></script>
+  <script src="/后台页面/static/assets/vendors/jsrender/jsrender.js"></script>
+  <script src="/后台页面/static/assets/vendors/twbs-pagination/jquery.twbsPagination.js"></script>
   <script>
     // nprogress
     $(document)
@@ -115,7 +116,7 @@ xiu_get_current_user();
 
     // 发送 AJAX 请求获取列表数据
     function loadPageData (page) {
-      $.get('/admin/api/comments.php',{ page: page },function(res) {
+      $.get('/后台页面/admin/api/comments.php',{ page: page },function(res) {
         if(page > res.total_pages) {
           loadPageData(res.total_pages )
           return false
@@ -162,7 +163,7 @@ xiu_get_current_user();
       var $tr = $(this).parent().parent()
       var id = $tr.data('id')
        // 2. 发送AJAX请求
-      $.get('/admin/api/comment-delete.php', { id: id }, function(res){
+      $.get('/后台页面/admin/api/comment-delete.php', { id: id }, function(res){
         if(!res) return
         // 3.根据服务端返回的删除是否成功决定是否在界面上移除
         // 4.重新载入当前这一页的数据
