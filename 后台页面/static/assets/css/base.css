@@ -1,0 +1,224 @@
+/***麦模板***/
+/*http://www.maimuban.com*/
+/*大量商业优质模板分享交易平台*/
+@charset "utf-8";
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote,
+dl, dt, dd, ul, ol, li,
+pre,
+form, fieldset, legend, button, input, textarea
+{margin:0px;padding:0px;}
+fieldset, img {border:0;}
+li {list-style:none;}
+/*body,button, input, select, textarea !* for ie *! {font: 78%/1.5 tahoma,Helvetica,arial, "\5b8b\4f53", sans-serif;}*/
+address, cite, dfn, em, var { font-style: normal; } /* 将斜体扶正 */
+code, kbd,samp { font-family: courier new, courier, monospace; }
+
+body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, /* structural elements 结构元素 */
+dl, dt, dd, ul, ol, li, /* list elements 列表元素 */
+pre, /* text formatting elements 文本格式元素 */
+fieldset, lengend, button, input, textarea, /* form elements 表单元素 */
+th, td { /* table elements 表格元素 */
+	margin: 0;
+	padding: 0;
+}
+ul, ol { list-style: none; }
+
+hr {
+	border: none;
+	height: 1px;
+}
+
+a,a:link,a:visited,a:hover,a:active{
+	color:#000;
+	text-decoration: none;
+}
+/*清除浮动*/
+.clearfix:after
+{
+	visibility: hidden;
+	display: block;
+	font-size: 0;
+	content: ".";
+	clear: both;
+	height: 0;
+}
+* html .clearfix
+{
+	zoom: 1;
+}
+*:first-child + html .clearfix
+{
+	zoom: 1;
+}
+ins {text-decoration:none;}
+del {text-decoration:line-through;}
+h1, h2, h3, h4, h5, h6 {}
+h1 {font-size: 2em;}
+h2 {font-size: 1.7em;}
+h3 {font-size: 1.5em;}
+h4 {font-size: 1.38em;}
+h5 {font-size: 1.2em;}
+h6 {font-size: 1.1em;font-style: italic;}
+
+address,cite,dfn,em,var{font-style:normal;}
+caption,td {font-weight: normal;}
+cite, blackquote, em, i {font-style: italic;}
+strong, b {	font-weight: bold;}
+pre, code {font-family: monospace;font-size: 1.1em;}
+abbr[title],acronym[title]{border-bottom:1px dotted;cursor:help;}
+table {	border-collapse:collapse; /* 边框合并属性 */border-spacing:0;}
+q:before, q:after, blockquote:before, blockquote:after {content:"";content:none}
+blockquote, q {	quotes:none;}
+
+legend { color: #000; } 
+button, input, select, textarea { font-size: 14px; }
+
+a{ text-decoration: none; }
+
+
+.c-000{
+	color: #000;
+}
+.c-333{
+	color: #333;
+}
+.c-666{
+	color: #666;
+}
+.c-999{
+	color: #999;
+}
+
+/**/
+.pa1{ padding:1px;}
+.pa5{ padding:5px;}
+.pa10{ padding:10px;}
+.pa20{ padding:20px;}
+.pa15{ padding:15px;}
+.pl10{ padding-left:10px;}
+.pr10{ padding-right:10px;}
+.pt10{ padding-top:10px;}
+.pb10{ padding-bottom:10px;}
+.pl5{ padding-left:5px;}
+.pr5{ padding-right:5px;}
+.pt5{ padding-top:5px;}
+.pb5{ padding-bottom:5px;}
+.pl15{ padding-left:15px;}
+.pr15{ padding-right:15px;}
+.pt15{ padding-top:15px;}
+.pb15{ padding-bottom:15px;}
+.pl20{ padding-left:20px;}
+.pr20{ padding-right:20px;}
+.pt20{ padding-top:20px;}
+.pb20{ padding-bottom:20px;}
+
+
+.ma5{ margin:5px;}
+.ma10{ margin:5px;}
+.ml10{ margin-left:10px;}
+.mr10{ margin-right:10px;}
+.mt10{ margin-top:10px;}
+.mb10{ margin-bottom:10px;}
+.ml5{ margin-left:5px;}
+.mr5{ margin-right:5px;}
+.mt5{ margin-top:5px;}
+.mb5{ margin-bottom:5px;}
+.ml15{ margin-left:15px;}
+.mr15{ margin-right:15px;}
+.mt15{ margin-top:15px;}
+.mb15{ margin-bottom:15px;}
+.ml20{ margin-left:20px;}
+.mr20{ margin-right:20px;}
+.mt20{ margin-top:20px;}
+.mb20{ margin-bottom:20px;}
+.ml30{ margin-left:30px;}
+.mr30{ margin-right:30px;}
+.mt30{ margin-top:30px;}
+.mb30{ margin-bottom:30px;}
+.mc{ margin-left:auto; margin-right:auto;}
+
+/*左右*/
+.fl{ float:left;}
+.fr{ float:right;}
+
+.tl{ text-align:left!important;}
+.tr{ text-align:right!important;}
+.tc{ text-align:center!important;}
+
+
+/*字体大小+行高*/
+.f12{ font-size:12px;}
+.f14{ font-size:14px;}
+.f16{ font-size:16px;}
+.f18{ font-size:18px;}
+.f20{
+	font-size: 20px !important;}
+.f22{ font-size:22px;}
+.f24{ font-size:24px;}
+.fw{
+	font-weight: 600;
+}
+.h12{ line-height:12px;}
+.f13{ font-size:13px;}
+.h13{ line-height:13px;}
+.f14{ font-size:14px;}
+.h14{ line-height:14px;}
+.f16{ font-size:16px;}
+.h16{ line-height:16px;}
+.f18{ font-size:18px;}
+.h18{ line-height:18px;}
+.f20{ font-size:20px;}
+.h20{ line-height:20px;}
+.h25{ line-height:25px;}
+.h30{ line-height:30px;}
+
+/*加粗*/
+.fw{font-weight:bold;}
+
+/*文字下划线*/
+.f_tdu{	text-decoration: underline;}
+.f_tdn{	text-decoration: none;}
+
+
+
+
+/*颜色*/
+.c_red, a.c_red, a.c_red:visited, a.c_red:link,.c_red a {color:#F00;}
+.c_green, a.c_green, a.c_green:visited, a.c_green:link,.c_green a {color:#090;}
+.c_blue, a.c_blue, a.c_blue:visited, a.c_blue:link,.c_blue a {color:#225D92;}
+.c_blue_1, a.c_blue_1, a.c_blue_1:visited, a.c_blue_1:link,.c_blue_1 a {color:#1E77D3;}
+.c_blue_2, a.c_blue_2, a.c_blue_2:visited, a.c_blue_2:link,.c_blue_2 a {color:#039;}
+.c_yellow, a.c_yellow, a.c_yellow:visited, a.c_yellow:link,.c_yellow a {color:#FF0;}
+.c_gray, a.c_gray, a.c_gray:visited, a.c_gray:link,.c_gray a {color:#666;}
+.c_white, a.c_white, a.c_white:visited, a.c_white:link,.c_white a {color:#FFF;}
+
+.c_ccc,a.c_ccc,a.c_ccc:visited,a.c_ccc:link{ color:#CCC;}
+.c_ddd,a.c_ddd,a.c_ddd:visited,a.c_ddd:link{ color:#DDD;}
+.c_999,a.c_999,a.c_999:visited,a.c_999:link{ color:#999;}
+.c_666,a.c_666,a.c_666:visited,a.c_666:link{ color:#666;}
+.c_333,a.c_333,a.c_333:visited,a.c_333:link{ color:#333;}
+.c_000,a.c_000,a.c_000:visited,a.c_000:link{ color:#333;}
+
+
+
+.block{ display:block;}
+.clear{ clear:both;}
+.clear_all{ clear:both; height:0; line-height:0;}
+/*
+	Name:			mod_clearfix
+	Level:			Global
+	Sample:			class="cl"
+	Explain:		Clearfix,避免因子元素浮动而导致的父元素高度缺失能问题
+	Last Modify:	lushnis
+*/
+.clear_all:after { content: "."; display: block; height: 0; clear: both; visibility: hidden; } .clear_all { zoom: 1; }
+
+/*下线*/
+.line_t{ border-top:1px solid #DDD;}
+.line_r{ border-right:1px solid #DDD;}
+.line_b{ border-bottom:1px solid #DDD;}
+.line_l{ border-left:1px solid #DDD;}
+
+.line_xb{
+	background: url(line_xb.gif) repeat-x left bottom;
+}

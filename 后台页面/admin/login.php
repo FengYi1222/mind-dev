@@ -81,6 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
   <link rel="stylesheet" href="/后台页面/static/assets/vendors/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="/后台页面/static/assets/vendors/animate/animate.css">
   <link rel="stylesheet" href="/后台页面/static/assets/css/admin.css">
+  <link rel="stylesheet" href="/后台页面/static/assets/css/base.css">
 </head>
 <body>
   <div class="login">
@@ -104,6 +105,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
         <input id="password" name="password" type="password" class="form-control" placeholder="密码">
       </div>
       <button class="btn btn-primary btn-block">登 录</button>
+      <a href="#" class="fr mt5">注 册</a>
     </form>
   </div>
   <script src="/后台页面/static/assets/vendors/jquery/jquery.js"></script>
