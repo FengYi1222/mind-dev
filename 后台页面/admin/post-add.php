@@ -5,6 +5,7 @@ $current_user = xiu_get_current_user();
 
  $GLOBALS['userid'] =  $current_user['id'];
  $GLOBALS['username'] =  $current_user['nickname'];
+ $GLOBALS['created'] = date('Y-m-d h:i:s', time());
 
 function add () {
   //1. 接受并校验
@@ -38,7 +39,7 @@ function add () {
   $title = $_POST['title'];
   $autor = $GLOBALS['username']; 
   $content = $_POST['content'];
-  $created = date('Y-m-d h:i:s', time());
+  $created = $GLOBALS['created'];
   $category = $_POST['category'];
   $status = $_POST['status'];
   $userid = $GLOBALS['userid'];
@@ -67,13 +68,69 @@ function add () {
    header('Location: /后台页面/admin/posts.php');
 }
 
+function edit () {
+    global $current_edit_category;
+
+    // // 只有当时编辑并点保存
+    // if (empty($_POST['name']) || empty($_POST['slug'])) {
+    //   $GLOBALS['message'] = '请完整填写表单！';
+    //   $GLOBALS['success'] = false;
+    //   return;
+    // }
+
+    // 接收并保存
+    $id = $current_edit_category['id'];
+    $title = empty($_POST['title']) ? $current_edit_category['title'] : $_POST['title'];
+    // 同步数据
+    $current_edit_category['title'] = $title;
 
 
+    $autor = empty($_POST['autor']) ? $current_edit_category['autor'] : $GLOBALS['username'];
+    $current_edit_category['autor'] = $autor;
+
+
+    $content = empty($_POST['content']) ? $current_edit_category['content'] : $_POST['content'];
+    $current_edit_category['content'] = $content;
+
+
+    $created = $GLOBALS['created'];
+    $current_edit_category['created'] = $created;
+
+    $category = empty($_POST['category']) ? $current_edit_category['category_id'] : $_POST['category'];
+    $current_edit_category['category_id'] = $category;
+
+    $status = empty($_POST['status']) ? $current_edit_category['status'] : $_POST['status'];
+
+    // insert into categories values (null, 'slug', 'name');
+    $rows = xiu_execute("update posts set title = '{$title}', autor = '{$autor}', content = '{$content}', created = '{$created}', category_id = {$category}, status = '{$status}' where id = {$id}");
+
+    $GLOBALS['success'] = $rows > 0;
+    $GLOBALS['message'] = $rows <= 0 ? '更新失败！' : '更新成功！';
+
+    header('Location: /后台页面/admin/posts.php');
+}
+
+
+// 判断是否为需要编辑的数据
+// ====================================
+// 判断是编辑主线还是添加主线
+
+if (empty($_GET['id'])) {
+  // 添加
   if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    echo "enene";
     add();
   }
-
+} else {
+  // 编辑
+  // 客户端通过 URL 传递了一个 ID
+  // => 客户端是要来拿一个修改数据的表单
+  // => 需要拿到用户想要修改的数据
+  $current_edit_category = xiu_fetch_one('select * from posts where id = ' . $_GET['id']);
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    echo $current_edit_category['id'];
+    edit();
+  }
+}
 
 ?>
 <!DOCTYPE html>
@@ -102,7 +159,12 @@ function add () {
       <!-- <div class="alert alert-danger">
         <strong>错误！</strong>发生XXX错误
       </div> -->
-      <form class="row" action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+      <?php if (empty($current_edit_category)): ?>
+        <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post">
+      <?php else: ?>
+          <form action="<?php echo $_SERVER['PHP_SELF']; ?>?id=<?php echo $current_edit_category['id']; ?>" method="post">
+      <?php endif ?>
+      
         <div class="col-md-9">
           <div class="form-group">
 
@@ -112,7 +174,7 @@ function add () {
           <div class="form-group">
             <label for="content">标题</label>
             <!-- <textarea id="content" class="form-control input-lg" name="content" cols="30" rows="10" placeholder="内容"></textarea> -->
-            <script id="content" name="content" type="text/plain"><?php echo isset($current_edit_category)? $current_edit_category['title'] : ''; ?></script>
+            <script id="content" name="content" type="text/plain"><?php echo isset($current_edit_category)? $current_edit_category['content'] : ''; ?></script>
           </div>
         </div>
         <div class="col-md-3">        
