@@ -7,7 +7,7 @@ require_once 'config.php';
  * 封装大家公用的函数
  */
 session_start();
-
+date_default_timezone_set('PRC');
 // 定义函数时一定要注意：函数名与内置函数冲突问题
 // JS 判断方式：typeof fn === 'function'
 // PHP 判断函数是否定义的方式： function_exists('get_current_user')

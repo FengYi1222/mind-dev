@@ -200,7 +200,7 @@ function convert_date ($created) {
             <!-- 一旦当输出的判断或者转换逻辑过于复杂，不建议直接写在混编位置 -->
             <td class="text-center"><?php echo convert_status($item['status']); ?></td>
             <td class="text-center">
-              <a href="javascript:;" class="btn btn-default btn-xs">编辑</a>
+              <a href="/后台页面/admin/post-add.php?id=<?php echo $item['id']; ?>" class="btn btn-default btn-xs">编辑</a>
               <a href="/后台页面/admin/post-delete.php?id=<?php echo $item['id']; ?>" class="btn btn-danger btn-xs">删除</a>
             </td>
           </tr>
