@@ -27,7 +27,7 @@ function add () {
   //   $GLOBALS['message'] = '请选择发布时间';
   //   return;
   // }
-  if ($_POST['category'] === 1) {
+  if ($_POST['category'] === '5') {
     $GLOBALS['message'] = '请选择分类';
     return;
   }
@@ -183,23 +183,23 @@ if (empty($_GET['id'])) {
             <label for="category">所属分类</label>
             <select id="category" class="form-control" name="category">
               <option value="5"
-               <?php if ($current_edit_category['category_id'] == '5') {
+               <?php if (isset($current_edit_category['category_id']) && $current_edit_category['category_id'] == 5) {
                 echo 'selected="selected"';
               }; ?>>未分类</option>
               <option value="1"
-              <?php if ($current_edit_category['category_id'] == 1) {
+              <?php if (isset($current_edit_category['category_id']) && $current_edit_category['category_id'] == 1) {
                 echo 'selected="selected"';
               }; ?>>男女情感</option>
               <option value="2"
-              <?php if ($current_edit_category['category_id'] == 2) {
+              <?php if (isset($current_edit_category['category_id']) && $current_edit_category['category_id'] == 2) {
                 echo 'selected="selected"';
               }; ?>>人际交往</option>
               <option value="3"
-              <?php if ($current_edit_category['category_id'] == 3) {
+              <?php if (isset($current_edit_category['category_id']) && $current_edit_category['category_id'] == 3) {
                 echo 'selected="selected"';
               }; ?>>自我提升</option>
               <option value="4"
-              <?php if ($current_edit_category['category_id'] == 4) {
+              <?php if (isset($current_edit_category['category_id']) && $current_edit_category['category_id'] == 4) {
                 echo 'selected="selected"';
               }; ?>>生活幸福</option>
             </select>
@@ -209,15 +209,15 @@ if (empty($_GET['id'])) {
             <label for="status">状态</label>
             <select id="status" class="form-control" name="status">
               <option value="drafted"
-              <?php if ($current_edit_category['status'] == 'drafted') {
+              <?php if (isset($current_edit_category['status']) && $current_edit_category['status'] == 'drafted') {
                 echo 'selected="selected"';
               }; ?>>草稿</option>
               <option value="published"
-              <?php if ($current_edit_category['status'] == 'published') {
+              <?php if (isset($current_edit_category['status']) && $current_edit_category['status'] == 'published') {
                 echo 'selected="selected"';
               }; ?>>已发布</option>
               <option value="trashed"
-              <?php if ($current_edit_category['status'] == 'trashed') {
+              <?php if (isset($current_edit_category['status']) && $current_edit_category['status'] == 'trashed') {
                 echo 'selected="selected"';
               }; ?>>回收站</option>  
             </select>
