@@ -1,16 +1,123 @@
-
 <?php
 
 require_once '../functions.php';
 
 xiu_get_current_user();
 
+// 接收筛选参数
+// ==================================
+
+$where = '1 = 1';
+$search = '';
+
+// 分类筛选
+
+if (isset($_GET['status']) && $_GET['status'] !== 'all') {
+  $where .= " and tiezi.status = '{$_GET['status']}'";
+  $search .= '&status=' . $_GET['status'];
+}
+
+// $where => "1 = 1 and tiezi.category_id = 1 and tiezi.status = 'published'"
+// $search => "&category=1&status=published"
+
+// 处理分页参数
+// =========================================
+
+$size = 20;
+$page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
+// 必须 >= 1 && <= 总页数
+
+// $page = $page < 1 ? 1 : $page;
+if ($page < 1) {
+  // 跳转到第一页
+  header('Location: /后台页面/admin/tiezi.php?page=1' . $search);
+}
+
+// 只要是处理分页功能一定会用到最大的页码数
+$total_count = (int)xiu_fetch_one("select count(1) as count from tiezi
+inner join users on tiezi.user_id = users.id
+where {$where};")['count'];
+$total_pages = (int)ceil($total_count / $size);
+
+// $page = $page > $total_pages ? $total_pages : $page;
+if ($page > $total_pages) {
+  // 跳转到第最后页
+  header('Location: /后台页面/admin/tiezi.php?page=' . $total_pages . $search);
+}
+
+// 获取全部数据
+// ===================================
+
+// 计算出越过多少条
+$offset = ($page - 1) * $size;
+
+$posts = xiu_fetch_all("select
+  tiezi.id,
+  tiezi.title,
+  tiezi.autor,
+  tiezi.created,
+  tiezi.status
+from tiezi
+inner join users on tiezi.user_id = users.id
+where {$where}
+order by tiezi.created desc
+limit {$offset}, {$size};");
+
+// 查询全部的分类数据
+// $categories = xiu_fetch_all('select * from categories;');
+
+// 处理分页页码
+// ===============================
+
+$visiables = 5;
+
+// 计算最大和最小展示的页码
+$begin = $page - ($visiables - 1) / 2;
+$end = $begin + $visiables - 1;
+
+// 重点考虑合理性的问题
+// begin > 0  end <= total_pages
+$begin = $begin < 1 ? 1 : $begin; // 确保了 begin 不会小于 1
+$end = $begin + $visiables - 1; // 因为 50 行可能导致 begin 变化，这里同步两者关系
+$end = $end > $total_pages ? $total_pages : $end; // 确保了 end 不会大于 total_pages
+$begin = $end - $visiables + 1; // 因为 52 可能改变了 end，也就有可能打破 begin 和 end 的关系
+$begin = $begin < 1 ? 1 : $begin; // 确保不能小于 1
+
+// 处理数据格式转换
+// ===========================================
+
+/**
+ * 转换状态显示
+ * @param  string $status 英文状态
+ * @return string         中文状态
+ */
+function convert_status ($status) {
+  $dict = array(
+    'published' => '发布',
+    'drafted' => '待审核',
+  );
+  return isset($dict[$status]) ? $dict[$status] : '未知';
+}
+
+/**
+ * 转换时间格式
+ * @param  [type] $created [description]
+ * @return [type]          [description]
+ */
+function convert_date ($created) {
+  // => '2017-07-01 08:08:00'
+  // 如果配置文件没有配置时区
+  // date_default_timezone_set('PRC');
+  $timestamp = strtotime($created);
+  return date('Y年m月d日<b\r>H:i:s', $timestamp);
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <title>tiezi &laquo; Admin</title>
+  <title>Posts &laquo; Admin</title>
   <link rel="stylesheet" href="/后台页面/static/assets/vendors/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="/后台页面/static/assets/vendors/font-awesome/css/font-awesome.css">
   <link rel="stylesheet" href="/后台页面/static/assets/vendors/nprogress/nprogress.css">
@@ -25,7 +132,8 @@ xiu_get_current_user();
 
     <div class="container-fluid">
       <div class="page-title">
-        <h1>所有评论</h1>
+        <h1>所有帖子</h1>
+        <!-- <a href="post-add.html" class="btn btn-primary btn-xs">写文章</a> -->
       </div>
       <!-- 有错误信息时展示 -->
       <!-- <div class="alert alert-danger">
@@ -33,27 +141,55 @@ xiu_get_current_user();
       </div> -->
       <div class="page-action">
         <!-- show when multiple checked -->
-        <div class="btn-batch" style="display: none">
-          <button class="btn btn-info btn-sm">批量批准</button>
-          <button class="btn btn-warning btn-sm">批量拒绝</button>
-          <button class="btn btn-danger btn-sm">批量删除</button>
-        </div>
+        <a class="btn btn-danger btn-sm" href="javascript:;" style="display: none">批量删除</a>
+        <form class="form-inline" action="<?php echo $_SERVER['PHP_SELF']; ?>">
+          <select name="status" class="form-control input-sm">
+            <option value="all">所有状态</option>
+            <option value="drafted"<?php echo isset($_GET['status']) && $_GET['status'] == 'drafted' ? ' selected' : '' ?>>待审核</option>
+            <option value="published"<?php echo isset($_GET['status']) && $_GET['status'] == 'published' ? ' selected' : '' ?>>发布</option>
+          </select>
+          <button class="btn btn-default btn-sm">筛选</button>
+        </form>
         <ul class="pagination pagination-sm pull-right">
-         
+          <li><a href="#">上一页</a></li>
+          <?php for ($i = $begin; $i <= $end; $i++): ?>
+          <li<?php echo $i === $page ? ' class="active"' : '' ?>><a href="?page=<?php echo $i . $search; ?>"><?php echo $i; ?></a></li>
+          <?php endfor ?>
+          <li><a href="#">下一页</a></li>
         </ul>
       </div>
       <table class="table table-striped table-bordered table-hover">
         <thead>
           <tr>
             <th class="text-center" width="40"><input type="checkbox"></th>
-            <th>帖子名字</th>
-            <th>楼主</th>
-            <th>发表时间</th>
-            <th>状态</th>
-            <th class="text-center" width="140">操作</th>
+            <th>标题</th>
+            <th>作者</th>
+            <th class="text-center">发表时间</th>
+            <th class="text-center">状态</th>
+            <th class="text-center" width="100">操作</th>
           </tr>
         </thead>
         <tbody>
+          <?php foreach ($posts as $item): ?>
+          <tr>
+            <td class="text-center"><input type="checkbox"></td>
+            <td><?php echo $item['title']; ?></td>
+            <!-- <td><?php // echo get_user($item['user_id']); ?></td>
+            <td><?php // echo get_category($item['category_id']); ?></td> -->
+            <td><?php echo $item['autor']; ?></td>
+            <td class="text-center"><?php echo convert_date($item['created']); ?></td>
+            <!-- 一旦当输出的判断或者转换逻辑过于复杂，不建议直接写在混编位置 -->
+            <td class="text-center"><?php echo convert_status($item['status']); ?></td>
+            <td class="text-center">
+              <?php if ($item['status'] == 'published'): ?> 
+              <a href="javascript:;" class="btn btn-warning btn-xs">回收</a>
+              <?php else: ?>
+              <a href="javascript:;" class="btn btn-info btn-xs">通过</a>
+              <?php endif; ?>
+              <a href="/后台页面/admin/tiezi-delete.php?id=<?php echo $item['id']; ?>" class="btn btn-danger btn-xs">删除</a>
+            </td>
+          </tr>
+          <?php endforeach ?>
         </tbody>
       </table>
     </div>
@@ -62,116 +198,8 @@ xiu_get_current_user();
   <?php $current_page = 'tiezi'; ?>
   <?php include 'inc/sidebar.php'; ?>
 
-<div id="loading" style="display: none;">
-    <div class="flip-txt-loading">
-      <span>L</span><span>o</span><span>a</span>
-      <span>d</span><span>i</span><span>n</span>
-      <span>g</span>
-    </div>
-  </div>
-
-  <script id="tiezi_tmpl" type="text/x-jsrender">
-      {{for tiezi}}
-      {{!--<tr><td>{{:#index}}</td><td>{{:autor}}</td></tr>--}}
-      <tr {{if status == 'held'}} class="warning" {{else status =='rejected'}} class="danger"  {{/if}}  data-id="{{:id}}" >
-            <td class="text-center"><input type="checkbox"></td>
-            <td>{{:title}}</td>
-            <td>{{:autor}}</td>
-            <td>{{:created}}</td>
-            <td>{{:status}}</td>
-            <td class="text-center">
-            {{if status == 'held'}}
-               <a href="post-add.html" class="btn btn-info btn-xs">批准</a>
-              <a href="post-add.html" class="btn btn-warning btn-xs">拒绝</a>
-              {{/if}}
-              <a href="javascript:;" class="btn btn-danger btn-xs btn-delete">删除</a>
-            </td>
-          </tr>
-
-      {{/for}}
-  </script>
   <script src="/后台页面/static/assets/vendors/jquery/jquery.js"></script>
   <script src="/后台页面/static/assets/vendors/bootstrap/js/bootstrap.js"></script>
-  <script src="/后台页面/static/assets/vendors/jsrender/jsrender.js"></script>
-  <script src="/后台页面/static/assets/vendors/twbs-pagination/jquery.twbsPagination.js"></script>
-  <script>
-    // nprogress
-    $(document)
-      .ajaxStart(function () {
-        NProgress.start()
-        $('#loading').fadeIn()
-        // $('#loading').css('display','flex')
-
-      })
-      .ajaxStop(function () {
-         NProgress.done()
-         $('#loading').fadeOut()
-        // $('#loading').css('display','none')
-       })
-
-
-    var currentPage = 1
-
-    // 发送 AJAX 请求获取列表数据
-    function loadPageData (page) {
-      $.get('/后台页面/admin/api/tiezi.php',{ page: page },function(res) {
-        if(page > res.total_pages) {
-          loadPageData(res.total_pages )
-          return false
-          console.log ("嗯嗯")
-        }
-        // 第一次回调时没有初始化分页组件
-        // 第二次调用这个组件不会重新渲染分页组件
-        $('.pagination').twbsPagination('destroy')
-        $('.pagination').twbsPagination({
-          first: '开始',
-          last: '末尾',
-          prev: '&lt;',
-          next: '&gt;',
-          startPage: page,
-          totalPages: res.total_pages,
-          visiablePages: 5,
-          initiateStartPageClick: false,
-          onPageClick: function (e, page) {
-            loadPageData(page)
-          }
-        })
-        // 渲染数据
-        var html = $('#tiezi_tmpl').render({ tiezi: res.tiezi })
-        $('tbody').fadeOut(function(){
-          $(this).fadeIn().html(html)
-          currentPage = page
-          })
-        })
-      }
-
-    loadPageData(1)
-    
-
-    // 删除功能
-    // ===================================
-    // 由于删除按钮是动态添加的 而且执行动态添加 代码时在此之后执行的，过早注册不上
-    // $('.btn-delete').on('click',function () {
-    //     console.log(11)
-    // })
-
-    $('tbody').on('click','.btn-delete',function () {
-       // 删除单条数据
-       // 1.拿到数据
-      console.log("hahahahaha")
-      var $tr = $(this).parent().parent()
-      var id = $tr.data('id')
-       // 2. 发送AJAX请求
-      $.get('/后台页面/admin/api/comment-delete.php', { id: id }, function(res){
-        if(!res) return
-        // 3.根据服务端返回的删除是否成功决定是否在界面上移除
-        // 4.重新载入当前这一页的数据
-        // $tr.remove()
-        loadPageData(currentPage)
-       })
-    })
-   
-  </script>
   <script>NProgress.done()</script>
 </body>
 </html>

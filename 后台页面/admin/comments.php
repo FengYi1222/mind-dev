@@ -46,7 +46,7 @@ xiu_get_current_user();
         <thead>
           <tr>
             <th class="text-center" width="40"><input type="checkbox"></th>
-            <th>作者</th>
+            <th>评论人</th>
             <th>评论</th>
             <th>评论在</th>
             <th>提交于</th>
@@ -80,13 +80,13 @@ xiu_get_current_user();
             <td>{{:content}}</td>
             <td>{{:post_title}}</td>
             <td>{{:created}}</td>
-            <td>{{:status}}</td>
+            <td>{{if status == 'approved'}} 显示 {{else status =='rejected'}} 隐藏 {{/if}} </td>
             <td class="text-center">
-            {{if status == 'held'}}
-               <a href="post-add.html" class="btn btn-info btn-xs">批准</a>
-              <a href="post-add.html" class="btn btn-warning btn-xs">拒绝</a>
-              {{/if}}
-              <a href="javascript:;" class="btn btn-danger btn-xs btn-delete">删除</a>
+            {{if status == 'approved'}}
+              <a href="javascript:;" class="btn btn-danger btn-xs btn-delete">隐藏</a>
+            {{else status =='rejected'}}
+              <a href="javascript:;" class="btn btn-info btn-xs">显示</a>
+            {{/if}}
             </td>
           </tr>
 
@@ -163,7 +163,23 @@ xiu_get_current_user();
       var $tr = $(this).parent().parent()
       var id = $tr.data('id')
        // 2. 发送AJAX请求
-      $.get('/后台页面/admin/api/comment-delete.php', { id: id }, function(res){
+      $.get('/后台页面/admin/api/comment-update.php', { id: id }, function(res){
+        if(!res) return
+        // 3.根据服务端返回的删除是否成功决定是否在界面上移除
+        // 4.重新载入当前这一页的数据
+        // $tr.remove()
+        loadPageData(currentPage)
+       })
+    })
+
+     $('tbody').on('click','.btn-info',function () {
+       // 删除单条数据
+       // 1.拿到数据
+      console.log("hahahahaha")
+      var $tr = $(this).parent().parent()
+      var id = $tr.data('id')
+       // 2. 发送AJAX请求
+      $.get('/后台页面/admin/api/comment-update.php', { id: id }, function(res){
         if(!res) return
         // 3.根据服务端返回的删除是否成功决定是否在界面上移除
         // 4.重新载入当前这一页的数据
