@@ -182,7 +182,11 @@ function convert_date ($created) {
             <td class="text-center"><?php echo convert_status($item['status']); ?></td>
             <td class="text-center">
               <?php if ($item['status'] == 'published'): ?> 
+<<<<<<< HEAD
               <a href="javascript:;" class="btn btn-warning btn-xs">回收</a>
+=======
+              <a href="javascript:;" class="btn btn-warning  btn-xs">回收</a>
+>>>>>>> 6bbf4f6afb2e1a554844b6b61730b91a8cd16559
               <?php else: ?>
               <a href="javascript:;" class="btn btn-info btn-xs">通过</a>
               <?php endif; ?>
