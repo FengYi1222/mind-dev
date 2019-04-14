@@ -46,9 +46,9 @@ xiu_get_current_user();
         <thead>
           <tr>
             <th class="text-center" width="40"><input type="checkbox"></th>
-            <th>评论人</th>
+            <th>回复对象</th>
             <th>评论内容</th>
-            <th>评论对象</th>
+            <th>评论帖子</th>
             <th>评论时间</th>
             <th class="text-center" width="140">操作</th>
           </tr>
@@ -84,7 +84,7 @@ xiu_get_current_user();
                <a href="post-add.html" class="btn btn-info btn-xs">批准</a>
               <a href="post-add.html" class="btn btn-warning btn-xs">拒绝</a>
               {{/if}}
-              <a href="javascript:;" class="btn btn-danger btn-xs btn-delete">删除</a>
+              <a href="/后台页面/admin/tzpinglun-delete.php?id={{:id}}" class="btn btn-danger btn-xs btn-delete">删除</a>
             </td>
           </tr>
 
@@ -147,30 +147,6 @@ xiu_get_current_user();
 
     loadPageData(1)
     
-
-    // 删除功能
-    // ===================================
-    // 由于删除按钮是动态添加的 而且执行动态添加 代码时在此之后执行的，过早注册不上
-    // $('.btn-delete').on('click',function () {
-    //     console.log(11)
-    // })
-
-    $('tbody').on('click','.btn-delete',function () {
-       // 删除单条数据
-       // 1.拿到数据
-      console.log("hahahahaha")
-      var $tr = $(this).parent().parent()
-      var id = $tr.data('id')
-       // 2. 发送AJAX请求
-      $.get('/后台页面/admin/api/comment-delete.php', { id: id }, function(res){
-        if(!res) return
-        // 3.根据服务端返回的删除是否成功决定是否在界面上移除
-        // 4.重新载入当前这一页的数据
-        // $tr.remove()
-        loadPageData(currentPage)
-       })
-    })
-   
   </script>
   <script>NProgress.done()</script>
 </body>

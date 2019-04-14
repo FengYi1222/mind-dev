@@ -42,8 +42,8 @@ $tzpinglun_count = xiu_fetch_one('select count(1) as num from tzpinglun;')['num'
 
     <div class="container-fluid">
       <div class="jumbotron text-center">
-        <h1>One Belt, One Road</h1>
-        <p>Thoughts, stories and ideas.</p>
+        <h1 style='color: #0b8bff'>欢迎~</h1>
+        <p>一切都是为了给用户更好的体验~~</p>
         <p><a class="btn btn-primary btn-lg" href="post-add.php" role="button">写文章</a></p>
       </div>
       <div class="row">

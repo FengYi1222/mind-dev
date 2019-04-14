@@ -9,7 +9,7 @@ xiu_get_current_user();
 <html lang="zh-CN">
 <head>
   <meta charset="utf-8">
-  <title>Navigation menus &laquo; Admin</title>
+  <title>Slides &laquo; Admin</title>
   <link rel="stylesheet" href="/后台页面/static/assets/vendors/bootstrap/css/bootstrap.css">
   <link rel="stylesheet" href="/后台页面/static/assets/vendors/font-awesome/css/font-awesome.css">
   <link rel="stylesheet" href="/后台页面/static/assets/vendors/nprogress/nprogress.css">
@@ -20,16 +20,11 @@ xiu_get_current_user();
   <script>NProgress.start()</script>
 
   <div class="main">
-    <nav class="navbar">
-      <button class="btn btn-default navbar-btn fa fa-bars"></button>
-      <ul class="nav navbar-nav navbar-right">
-        <li><a href="profile.php"><i class="fa fa-user"></i>个人中心</a></li>
-        <li><a href="logout.php"><i class="fa fa-sign-out"></i>退出</a></li>
-      </ul>
-    </nav>
+    <?php include 'inc/navbar.php'; ?>
+
     <div class="container-fluid">
       <div class="page-title">
-        <h1>导航菜单</h1>
+        <h1>音乐文件添加</h1>
       </div>
       <!-- 有错误信息时展示 -->
       <!-- <div class="alert alert-danger">
@@ -38,18 +33,20 @@ xiu_get_current_user();
       <div class="row">
         <div class="col-md-4">
           <form>
-            <h2>添加新导航链接</h2>
+            <h2>添加新轮播内容</h2>
+            <div class="form-group">
+              <label for="image">图片</label>
+              <!-- show when image chose -->
+              <img class="help-block thumbnail" style="display: none">
+              <input id="image" class="form-control" name="image" type="file">
+            </div>
             <div class="form-group">
               <label for="text">文本</label>
               <input id="text" class="form-control" name="text" type="text" placeholder="文本">
             </div>
             <div class="form-group">
-              <label for="title">标题</label>
-              <input id="title" class="form-control" name="title" type="text" placeholder="标题">
-            </div>
-            <div class="form-group">
-              <label for="href">链接</label>
-              <input id="href" class="form-control" name="href" type="text" placeholder="链接">
+              <label for="link">链接</label>
+              <input id="link" class="form-control" name="link" type="text" placeholder="链接">
             </div>
             <div class="form-group">
               <button class="btn btn-primary" type="submit">添加</button>
@@ -65,8 +62,8 @@ xiu_get_current_user();
             <thead>
               <tr>
                 <th class="text-center" width="40"><input type="checkbox"></th>
+                <th class="text-center">图片</th>
                 <th>文本</th>
-                <th>标题</th>
                 <th>链接</th>
                 <th class="text-center" width="100">操作</th>
               </tr>
@@ -74,8 +71,8 @@ xiu_get_current_user();
             <tbody>
               <tr>
                 <td class="text-center"><input type="checkbox"></td>
-                <td><i class="fa fa-glass"></i>奇趣事</td>
-                <td>奇趣事</td>
+                <td class="text-center"><img class="slide" src="/后台页面/static/uploads/slide_1.jpg"></td>
+                <td>XIU功能演示</td>
                 <td>#</td>
                 <td class="text-center">
                   <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
@@ -83,17 +80,8 @@ xiu_get_current_user();
               </tr>
               <tr>
                 <td class="text-center"><input type="checkbox"></td>
-                <td><i class="fa fa-phone"></i>潮科技</td>
-                <td>潮科技</td>
-                <td>#</td>
-                <td class="text-center">
-                  <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
-                </td>
-              </tr>
-              <tr>
-                <td class="text-center"><input type="checkbox"></td>
-                <td><i class="fa fa-fire"></i>会生活</td>
-                <td>会生活</td>
+                <td class="text-center"><img class="slide" src="/后台页面/static/uploads/slide_2.jpg"></td>
+                <td>XIU功能演示</td>
                 <td>#</td>
                 <td class="text-center">
                   <a href="javascript:;" class="btn btn-danger btn-xs">删除</a>
