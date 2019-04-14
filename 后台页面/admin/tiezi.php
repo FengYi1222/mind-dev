@@ -7,110 +7,111 @@ xiu_get_current_user();
 // 接收筛选参数
 // ==================================
 
-$where = '1 = 1';
-$search = '';
+    $where = '1 = 1';
+    $search = '';
 
-// 分类筛选
+    // 分类筛选
 
-if (isset($_GET['status']) && $_GET['status'] !== 'all') {
-  $where .= " and tiezi.status = '{$_GET['status']}'";
-  $search .= '&status=' . $_GET['status'];
-}
+    if (isset($_GET['status']) && $_GET['status'] !== 'all') {
+      $where .= " and tiezi.status = '{$_GET['status']}'";
+      $search .= '&status=' . $_GET['status'];
+    }
 
-// $where => "1 = 1 and tiezi.category_id = 1 and tiezi.status = 'published'"
-// $search => "&category=1&status=published"
+    // $where => "1 = 1 and tiezi.category_id = 1 and tiezi.status = 'published'"
+    // $search => "&category=1&status=published"
 
-// 处理分页参数
-// =========================================
+    // 处理分页参数
+    // =========================================
 
-$size = 20;
-$page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
-// 必须 >= 1 && <= 总页数
+    $size = 5;
+    $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
+    // 必须 >= 1 && <= 总页数
 
-// $page = $page < 1 ? 1 : $page;
-if ($page < 1) {
-  // 跳转到第一页
-  header('Location: /后台页面/admin/tiezi.php?page=1' . $search);
-}
+    // $page = $page < 1 ? 1 : $page;
+    if ($page < 1) {
+      // 跳转到第一页
+      header('Location: /后台页面/admin/tiezi.php?page=1' . $search);
+    }
 
-// 只要是处理分页功能一定会用到最大的页码数
-$total_count = (int)xiu_fetch_one("select count(1) as count from tiezi
-inner join users on tiezi.user_id = users.id
-where {$where};")['count'];
-$total_pages = (int)ceil($total_count / $size);
+    // 只要是处理分页功能一定会用到最大的页码数
+    $total_count = (int)xiu_fetch_one("select count(1) as count from tiezi
+    inner join users on tiezi.user_id = users.id
+    where {$where};")['count'];
+    $total_pages = (int)ceil($total_count / $size);
 
-// $page = $page > $total_pages ? $total_pages : $page;
-if ($page > $total_pages) {
-  // 跳转到第最后页
-  header('Location: /后台页面/admin/tiezi.php?page=' . $total_pages . $search);
-}
+    // $page = $page > $total_pages ? $total_pages : $page;
+    if ($page > $total_pages) {
+      // 跳转到第最后页
+      header('Location: /后台页面/admin/tiezi.php?page=' . $total_pages . $search);
+    }
 
-// 获取全部数据
-// ===================================
+    // 获取全部数据
+    // ===================================
 
-// 计算出越过多少条
-$offset = ($page - 1) * $size;
+    // 计算出越过多少条
+    $offset = ($page - 1) * $size;
 
-$posts = xiu_fetch_all("select
-  tiezi.id,
-  tiezi.title,
-  tiezi.autor,
-  tiezi.created,
-  tiezi.status
-from tiezi
-inner join users on tiezi.user_id = users.id
-where {$where}
-order by tiezi.created desc
-limit {$offset}, {$size};");
+    $posts = xiu_fetch_all("select
+      tiezi.id,
+      tiezi.title,
+      tiezi.autor,
+      tiezi.created,
+      tiezi.status
+    from tiezi
+    inner join users on tiezi.user_id = users.id
+    where {$where}
+    order by tiezi.created desc
+    limit {$offset}, {$size};");
 
-// 查询全部的分类数据
-// $categories = xiu_fetch_all('select * from categories;');
+    // 查询全部的分类数据
+    // $categories = xiu_fetch_all('select * from categories;');
 
-// 处理分页页码
-// ===============================
+    // 处理分页页码
+    // ===============================
 
-$visiables = 5;
+    $visiables = 5;
 
-// 计算最大和最小展示的页码
-$begin = $page - ($visiables - 1) / 2;
-$end = $begin + $visiables - 1;
+    // 计算最大和最小展示的页码
+    $begin = $page - ($visiables - 1) / 2;
+    $end = $begin + $visiables - 1;
 
-// 重点考虑合理性的问题
-// begin > 0  end <= total_pages
-$begin = $begin < 1 ? 1 : $begin; // 确保了 begin 不会小于 1
-$end = $begin + $visiables - 1; // 因为 50 行可能导致 begin 变化，这里同步两者关系
-$end = $end > $total_pages ? $total_pages : $end; // 确保了 end 不会大于 total_pages
-$begin = $end - $visiables + 1; // 因为 52 可能改变了 end，也就有可能打破 begin 和 end 的关系
-$begin = $begin < 1 ? 1 : $begin; // 确保不能小于 1
+    // 重点考虑合理性的问题
+    // begin > 0  end <= total_pages
+    $begin = $begin < 1 ? 1 : $begin; // 确保了 begin 不会小于 1
+    $end = $begin + $visiables - 1; // 因为 50 行可能导致 begin 变化，这里同步两者关系
+    $end = $end > $total_pages ? $total_pages : $end; // 确保了 end 不会大于 total_pages
+    $begin = $end - $visiables + 1; // 因为 52 可能改变了 end，也就有可能打破 begin 和 end 的关系
+    $begin = $begin < 1 ? 1 : $begin; // 确保不能小于 1
 
-// 处理数据格式转换
-// ===========================================
+    // 处理数据格式转换
+    // ===========================================
 
-/**
- * 转换状态显示
- * @param  string $status 英文状态
- * @return string         中文状态
- */
-function convert_status ($status) {
-  $dict = array(
-    'published' => '发布',
-    'drafted' => '待审核',
-  );
-  return isset($dict[$status]) ? $dict[$status] : '未知';
-}
+    /**
+     * 转换状态显示
+     * @param  string $status 英文状态
+     * @return string         中文状态
+     */
+    function convert_status ($status) {
+      $dict = array(
+        'published' => '发布',
+        'drafted' => '待审核',
+      );
+      return isset($dict[$status]) ? $dict[$status] : '未知';
+    }
 
-/**
- * 转换时间格式
- * @param  [type] $created [description]
- * @return [type]          [description]
- */
-function convert_date ($created) {
-  // => '2017-07-01 08:08:00'
-  // 如果配置文件没有配置时区
-  // date_default_timezone_set('PRC');
-  $timestamp = strtotime($created);
-  return date('Y年m月d日<b\r>H:i:s', $timestamp);
-}
+    /**
+     * 转换时间格式
+     * @param  [type] $created [description]
+     * @return [type]          [description]
+     */
+    function convert_date ($created) {
+      // => '2017-07-01 08:08:00'
+      // 如果配置文件没有配置时区
+      // date_default_timezone_set('PRC');
+      $timestamp = strtotime($created);
+      return date('Y年m月d日<b\r>H:i:s', $timestamp);
+    }
+
 
 ?>
 <!DOCTYPE html>
@@ -171,7 +172,7 @@ function convert_date ($created) {
         </thead>
         <tbody>
           <?php foreach ($posts as $item): ?>
-          <tr>
+          <tr id="shuaxin" data-id='<?php echo $item["id"] ?>'>
             <td class="text-center"><input type="checkbox"></td>
             <td><?php echo $item['title']; ?></td>
             <!-- <td><?php // echo get_user($item['user_id']); ?></td>
@@ -179,16 +180,12 @@ function convert_date ($created) {
             <td><?php echo $item['autor']; ?></td>
             <td class="text-center"><?php echo convert_date($item['created']); ?></td>
             <!-- 一旦当输出的判断或者转换逻辑过于复杂，不建议直接写在混编位置 -->
-            <td class="text-center"><?php echo convert_status($item['status']); ?></td>
-            <td class="text-center">
+            <td class="text-center zhuangtai"><?php echo convert_status($item['status']); ?></td>
+            <td class="text-center anniu">
               <?php if ($item['status'] == 'published'): ?> 
-<<<<<<< HEAD
-              <a href="javascript:;" class="btn btn-warning btn-xs">回收</a>
-=======
-              <a href="javascript:;" class="btn btn-warning  btn-xs">回收</a>
->>>>>>> 6bbf4f6afb2e1a554844b6b61730b91a8cd16559
+              <a href="javascript:;" class="btn btn-warning btn-xs"><span>待定</span></a>
               <?php else: ?>
-              <a href="javascript:;" class="btn btn-info btn-xs">通过</a>
+              <a href="javascript:;" class="btn btn-info btn-xs"><span>通过</span></a>
               <?php endif; ?>
               <a href="/后台页面/admin/tiezi-delete.php?id=<?php echo $item['id']; ?>" class="btn btn-danger btn-xs">删除</a>
             </td>
@@ -205,5 +202,36 @@ function convert_date ($created) {
   <script src="/后台页面/static/assets/vendors/jquery/jquery.js"></script>
   <script src="/后台页面/static/assets/vendors/bootstrap/js/bootstrap.js"></script>
   <script>NProgress.done()</script>
+  <script>
+
+
+
+    // 更改状态
+       $('tbody').on('click','.btn-warning',function () {
+       // 删除单条数据
+       // 1.拿到数据
+      var $tr = $(this).parent().parent()
+      var id = $tr.data('id')
+       // 2. 发送AJAX请求
+      $.get('/后台页面/admin/api/tiezi-update.php', { id: id }, function(res){
+        if(!res) return
+        $tr.find("td.zhuangtai").html(res.val1)        
+        $tr.find("td.anniu a:first-child").html(res.val2).addClass("btn-info").removeClass("btn-warning")   
+       })
+    })
+
+    $('tbody').on('click','.btn-info',function () {
+       // 删除单条数据
+       // 1.拿到数据
+      var $tr = $(this).parent().parent()
+      var id = $tr.data('id')
+       // 2. 发送AJAX请求
+      $.get('/后台页面/admin/api/tiezi-update.php', { id: id }, function(res){
+        if(!res) return
+        $tr.find("td.zhuangtai").html(res.val1)   
+        $tr.find("td.anniu a:first-child").html(res.val2).addClass("btn-warning") .removeClass("btn-info")       
+       })
+    })
+  </script>
 </body>
 </html>

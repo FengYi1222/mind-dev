@@ -27,7 +27,7 @@ if (isset($_GET['status']) && $_GET['status'] !== 'all') {
 // 处理分页参数
 // =========================================
 
-$size = 20;
+$size = 2;
 $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
 // 必须 >= 1 && <= 总页数
 

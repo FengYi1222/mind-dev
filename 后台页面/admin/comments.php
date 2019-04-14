@@ -172,7 +172,7 @@ xiu_get_current_user();
        })
     })
 
-     $('tbody').on('click','.btn-info',function () {
+    $('tbody').on('click','.btn-info',function () {
        // 删除单条数据
        // 1.拿到数据
       console.log("hahahahaha")
