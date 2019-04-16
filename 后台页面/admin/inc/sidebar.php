@@ -57,20 +57,20 @@ $current_user = xiu_get_current_user();
     <li<?php// echo $current_page === 'users' ? ' class="active"' : '' ?>>
       <a href="/后台页面/admin/users.php"><i class="fa fa-users"></i>用户</a>
     </li> -->
-    <?php $menu_settings = array('nav-menus', 'slides', 'settings'); ?>
+    <?php $menu_settings = array('music', 'slides', 'settings'); ?>
     <li<?php echo in_array($current_page, $menu_settings) ? ' class="active"' : '' ?>>
       <a href="#menu-settings"<?php echo in_array($current_page, $menu_settings) ? '' : ' class="collapsed"' ?> data-toggle="collapse">
         <i class="fa fa-cogs"></i>设置<i class="fa fa-angle-right"></i>
       </a>
       <ul id="menu-settings" class="collapse<?php echo in_array($current_page, $menu_settings) ? ' in' : '' ?>">
-        <li<?php echo $current_page === 'nav-menus' ? ' class="active"' : '' ?>><a href="/后台页面/admin/music.php">音乐添加</a></li>
+        <li<?php echo $current_page === 'music' ? ' class="active"' : '' ?>><a href="/后台页面/admin/music.php">音乐添加</a></li>
         <li<?php echo $current_page === 'slides' ? ' class="active"' : '' ?>><a href="/后台页面/admin/slides.php">图片轮播</a></li>
         <!-- 网站的设置 -->
         <!-- <li<?//php echo $current_page === 'settings' ? ' class="active"' : '' ?>><a href="/后台页面/admin/settings.php">网站设置</a></li> -->
       </ul>
     </li>
-    <li<?php echo $current_page === 'douban' ? ' class="active"' : '' ?>>
+   <!--  <li<?php //echo $current_page === 'douban' ? ' class="active"' : '' ?>>
       <a href="/后台页面/admin/douban.php"><i class="fa fa-list-alt"></i>电影榜单</a>
-    </li>
+    </li> -->
   </ul>
 </div>

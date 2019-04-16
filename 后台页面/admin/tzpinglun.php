@@ -115,10 +115,10 @@ xiu_get_current_user();
     // 发送 AJAX 请求获取列表数据
     function loadPageData (page) {
       $.get('/后台页面/admin/api/tzpinglun.php',{ page: page },function(res) {
+                  console.log (res)
         if(page > res.total_pages) {
           loadPageData(res.total_pages )
           return false
-          console.log ("嗯嗯")
         }
         // 第一次回调时没有初始化分页组件
         // 第二次调用这个组件不会重新渲染分页组件
@@ -139,6 +139,7 @@ xiu_get_current_user();
         // 渲染数据
         var html = $('#tzpinglun_tmpl').render({ tzpinglun: res.tzpinglun })
         $('tbody').fadeOut(function(){
+          console.log("enen")
           $(this).fadeIn().html(html)
           currentPage = page
           })
