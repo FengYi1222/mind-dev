@@ -7,11 +7,18 @@ require_once '../functions.php';
 $current_page = isset($current_page) ? $current_page : '';
 $current_user = xiu_get_current_user();
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $current_user['nickname'] == $_POST['nickname'];
+    // return;
+
+}
+
+
 ?>
 <div class="aside">
   <div class="profile">
     <img class="avatar" src="<?php echo $current_user['avatar']; ?>">
-    <h3 class="name"><?php echo $current_user['nickname']; ?></h3>
+    <h3 id="zheshinick" class="name"><?php echo $current_user['nickname']; ?></h3>
   </div>
   <ul class="nav">
     <li<?php echo $current_page === 'index' ? ' class="active"' : '' ?>>

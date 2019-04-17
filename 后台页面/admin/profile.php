@@ -2,7 +2,62 @@
 
 require_once '../functions.php';
 
-xiu_get_current_user();
+
+$current_user = xiu_get_current_user();
+
+ $GLOBALS['userid'] =  $current_user['id'];
+
+ $current_edit_users = xiu_fetch_one('select * from users where id = ' . $GLOBALS['userid']);
+
+function edit_users () {
+  global $current_edit_users;
+
+  // 接收并保存
+  $id = $current_edit_users['id'];
+
+  $avatar = $_POST["avatar"];
+  $nick = $_POST['nickname'];
+  // var_dump($urla);
+  // var_dump($nick);
+
+
+  $nickname = empty($_POST['nickname']) ? $current_edit_users['nickname'] : $_POST['nickname'];
+  // 同步数据
+  $current_edit_users['nickname'] = $nickname;
+  $content = empty($_POST['content']) ? $current_edit_users['content'] : $_POST['content'];
+  $current_edit_users['content'] = $content;
+
+  $password = empty($_POST['password']) ? $current_edit_users['password'] : $_POST['password'];
+  $current_edit_users['password'] = $password;
+
+  $avatar = empty($_POST['avatar']) ? $current_edit_users['avatar'] : $_POST['avatar'];
+  $current_edit_users['avatar'] = $avatar;
+
+  if($_POST['password'] !== $_POST['password1']) {
+    $GLOBALS['message'] = '密码出错';
+    return;
+  }
+
+
+  $rows = xiu_execute("update users set content = '{$content}', nickname = '{$nickname}', password='{$password}', avatar = '{$avatar}' where id = {$id}");
+
+  $GLOBALS['success'] = $rows > 0;
+  $GLOBALS['message'] = $rows <= 0 ? '更新失败！' : '更新成功！';
+}
+
+  // echo $current_edit_users['email']; 
+  // echo $current_edit_users['avatar']; 
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    edit_users(); 
+  }
+
+
+// 查询全部的分类数据
+$users = xiu_fetch_all('select * from users;');
+
+
+
 
 ?>
 <!DOCTYPE html>
@@ -27,16 +82,25 @@ xiu_get_current_user();
         <h1>我的个人资料</h1>
       </div>
       <!-- 有错误信息时展示 -->
-      <!-- <div class="alert alert-danger">
-        <strong>错误！</strong>发生XXX错误
-      </div> -->
-      <form class="form-horizontal">
+      <?php if (isset($message)): ?>
+      <?php if (isset($success)): ?>
+      <div class="alert alert-success">
+        <strong>成功！</strong> <?php echo $success; ?>
+      </div>
+      <?php else: ?>
+      <div class="alert alert-danger">
+        <strong>错误！</strong> <?php echo $message; ?>
+      </div>
+      <?php endif ?>
+      <?php endif ?>
+      <?php if (isset($current_edit_users)): ?>
+      <form class="form-horizontal"  action="<?php echo $_SERVER['PHP_SELF']; ?>" method="post" enctype="multipart/form-data">
         <div class="form-group">
           <label class="col-sm-3 control-label">头像</label>
           <div class="col-sm-6">
             <label class="form-image">
               <input id="avatar" type="file">
-              <img src="/后台页面/static/assets/img/default.png">
+              <img src="<?php echo $current_edit_users['avatar']; ?>">
               <input type="hidden" name="avatar">
               <i class="mask fa fa-upload"></i>
             </label>
@@ -45,37 +109,47 @@ xiu_get_current_user();
         <div class="form-group">
           <label for="email" class="col-sm-3 control-label">邮箱</label>
           <div class="col-sm-6">
-            <input id="email" class="form-control" name="email" type="type" value="w@zce.me" placeholder="邮箱" readonly>
+            <input id="email" class="form-control" name="email" type="type" value="<?php echo $current_edit_users['email']; ?>" placeholder="邮箱" readonly>
             <p class="help-block">登录邮箱不允许修改</p>
           </div>
         </div>
         <div class="form-group">
-          <label for="slug" class="col-sm-3 control-label">别名</label>
+          <label for="password" class="col-sm-3 control-label">原密码</label>
           <div class="col-sm-6">
-            <input id="slug" class="form-control" name="slug" type="type" value="zce" placeholder="slug">
-            <p class="help-block">https://zce.me/author/<strong>zce</strong></p>
+            <input type="password" id="password" class="form-control" name="password" type="type" value="<?php echo $current_edit_users['password']; ?>" placeholder="邮箱" >
+            <!-- <p class="help-block">登录邮箱不允许修改</p> -->
           </div>
         </div>
+
+        <div class="form-group">
+          <label for="password1" class="col-sm-3 control-label">确认密码</label>
+          <div class="col-sm-6">
+            <input type="password" id="password1" class="form-control" name="password1" type="type" value="<?php echo $current_edit_users['password']; ?>" placeholder="邮箱" >
+            <!-- <p class="help-block">登录邮箱不允许修改</p> -->
+          </div>
+        </div>
+
         <div class="form-group">
           <label for="nickname" class="col-sm-3 control-label">昵称</label>
           <div class="col-sm-6">
-            <input id="nickname" class="form-control" name="nickname" type="type" value="汪磊" placeholder="昵称">
+            <input id="nickname" class="form-control" name="nickname" type="type" value="<?php echo $current_edit_users['nickname']; ?>" placeholder="<?php echo $current_edit_users['nickname']; ?>">
             <p class="help-block">限制在 2-16 个字符</p>
           </div>
         </div>
         <div class="form-group">
-          <label for="bio" class="col-sm-3 control-label">简介</label>
+          <label for="content" class="col-sm-3 control-label">简介</label>
           <div class="col-sm-6">
-            <textarea id="bio" class="form-control" placeholder="Bio" cols="30" rows="6">MAKE IT BETTER!</textarea>
+            <textarea id="content" name="content"class="form-control" placeholder="<?php echo $current_edit_users['content']; ?>" cols="30" rows="6"></textarea>
           </div>
         </div>
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-6">
-            <button type="submit" class="btn btn-primary">更新</button>
-            <a class="btn btn-link" href="password-reset.html">修改密码</a>
+            <button id="fasong" type="submit" class="btn btn-primary">更新</button>
+            <!-- <a class="btn btn-link" href="password-reset.html">修改密码</a> -->
           </div>
         </div>
       </form>
+    <?php endif; ?>
     </div>
   </div>
 
@@ -116,6 +190,13 @@ xiu_get_current_user();
 
 
     })
+
+
+      // $('#fasong').on('click',function(){
+      //     $.post("/后台页面/admin/inc/sidebar.php",{ nickname: "<?//php echo $current_edit_users['nickname']; ?>"}, function(res){
+      //           return;
+      //     })
+      // })
 
   </script>
 

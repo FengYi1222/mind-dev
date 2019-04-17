@@ -36,7 +36,7 @@ function add_images () {
   $ext = pathinfo($urla['name'], PATHINFO_EXTENSION);
 
   // 移动文件到网站范围之内
-  $target = '../../static/uploads/img-' . uniqid() . '.' . $ext;
+  $target = '../static/uploads/img-' . uniqid() . '.' . $ext;
 
   if(!move_uploaded_file($urla['tmp_name'], $target)) {
       var_dump($target);
@@ -208,7 +208,7 @@ $images = xiu_fetch_all('select * from images;');
               <?php foreach ($images as $item): ?>
               <tr>
                 <td class="text-center"><input type="checkbox" data-id="<?php echo $item['id']; ?>"></td>
-                <td><?php echo $item['src']; ?></td>
+                <td><img src="<?php echo $item['src']; ?>" alt=""></td>
                 <td><?php echo $item['title']; ?></td>
                 <td><?php echo $item['link']; ?></td>
                 <td class="text-center">

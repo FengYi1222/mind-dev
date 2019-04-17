@@ -32,4 +32,4 @@ if(!move_uploaded_file($avatar['tmp_name'], $target)) {
 }
 
 // 上传成功
-echo substr($target, 5);
+echo substr($target, 3);

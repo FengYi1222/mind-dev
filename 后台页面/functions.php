@@ -82,3 +82,4 @@ function xiu_execute ($sql) {
 
   return $affected_rows;
 }
+
