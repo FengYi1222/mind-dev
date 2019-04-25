@@ -1,5 +1,5 @@
 		<div class="zhongjian">
-			<span class="mt5 fl mr20 mt20">心理栈</span>
+			<span class="mt5 fl mr20 mt20 logo">心理栈</span>
 			<ul class="fl mt5 mt20 navbar">
 				<li><a href="javascript:;">首页</a></li>
 				<span>|</span>

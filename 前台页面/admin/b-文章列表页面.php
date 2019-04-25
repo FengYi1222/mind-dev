@@ -1,3 +1,22 @@
+<?php 
+
+require_once '../functions.php';
+
+// xiu_get_current_user();
+// 第一步：
+// 1.1 拿到文章的数据 根据不同条件
+$posts_hour = xiu_fetch_all("select
+* from posts limit 5;"
+);
+
+// 1.2 TODO: 拿到对应文章的用户的头像
+
+
+// TODO: 文章列表的懒加载 效果实现
+
+// TODO： 复制这三个页面
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,11 +31,6 @@
 </head>
 
 <body>
-    <div class="wel-nav">
-        <script type="">
-            $('.wel-nav').load('common/nav.html')
-        </script>
-    </div>
     <div class="content clearfix">
         <div class="main">
         <!-- 这个尝试使用瀑布流 -->
@@ -63,32 +77,13 @@
                     <div class="wzl-btn2">过去7天</div>
                     <div class="wzl-btn3">过去1月</div>
                 </div>
+                <?php foreach ($posts_hour as $item): ?>
                 <div class="wzl-xianshi">
                     <div class="wzl-touxiang"><img src="../img/gu.jpeg" alt=""></div>
-                    <a href="#"><a href="#"><div class="wzl-biaoti">我是热门标题</div></a></a>
-                    <div class="wzl-neirong">我是热门标题里面的内容，你说我有多受欢迎………………</div>
+                    <a href="#"><a href="#"><div class="wzl-biaoti"><?php echo $item['title'] ?></div></a></a>
+                    <div class="wzl-neirong"><?php echo $item['content']?></div>
                 </div>
-                    
-                <div class="wzl-xianshi">
-                    <div class="wzl-touxiang"><img src="../img/gu.jpeg" alt=""></div>
-                    <a href="#"><div class="wzl-biaoti">我是热门标题</div></a>
-                    <div class="wzl-neirong">我是热门标题里面的内容，你说我有多受欢迎………………</div>
-                </div>
-                <div class="wzl-xianshi">
-                    <div class="wzl-touxiang"><img src="../img/gu.jpeg" alt=""></div>
-                    <a href="#"><div class="wzl-biaoti">我是热门标题</div></a>
-                    <div class="wzl-neirong">我是热门标题里面的内容，你说我有多受欢迎………………</div>
-                </div>
-                <div class="wzl-xianshi">
-                    <div class="wzl-touxiang"><img src="../img/gu.jpeg" alt=""></div>
-                    <a href="#"><div class="wzl-biaoti">我是热门标题</div></a>
-                    <div class="wzl-neirong">我是热门标题里面的内容，你说我有多受欢迎………………</div>
-                </div>
-                <div class="wzl-xianshi">
-                    <div class="wzl-touxiang"><img src="../img/gu.jpeg" alt=""></div>
-                    <a href="#"><div class="wzl-biaoti">我是热门标题</div></a>
-                    <div class="wzl-neirong">我是热门标题里面的内容，你说我有多受欢迎………………</div>
-                 </div>
+                <?php endforeach;?>
 
                  
             <div class="lianjie">
@@ -102,11 +97,6 @@
         </div>
 
     </div>
-<div class="wel-footer">
-    <script type="">
-        $('.wel-footer').load('common/footer.html')
-    </script>
-</div>
 </body>
 
 </html>

@@ -2,8 +2,11 @@
 			margin: 0;
 			padding: 0;
 		}
+		.zym {
+			/*margin-top: 75px;*/
+		}
 		.content {
-			margin-top: 72px;
+			margin-top: 82px;
 		}
 		/*轮播图*/
 
@@ -160,7 +163,7 @@
 
 		.rewen .rewen-neirong {
 			width: 300px;
-			height: 70px;
+			height: 55px;
 			margin-top: 5px;
 			margin-left: 15px;
 			float: left;
@@ -175,6 +178,9 @@
 		    -webkit-box-orient: vertical;
 		    -webkit-line-clamp: 2;
 		    line-height: 18px;
+
+
+		    
 		    /*margin-right: 35px;*/
 		    /*margin-bottom: 12px;*/
 		}
