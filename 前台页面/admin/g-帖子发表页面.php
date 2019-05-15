@@ -11,11 +11,8 @@
 </head>
 
 <body>
-	        <div class="wel-nav">
-        <script type="">
-            $('.wel-nav').load('common/nav.html')
-        </script>
-    </div>
+    <?php $current_page = 'six'; ?>
+    <?php include 'inc/nav.php'; ?>
     <div class="content clearfix mb30">
     	    <div class="main">
         <div class="main-l">

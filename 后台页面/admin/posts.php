@@ -21,13 +21,12 @@ if (isset($_GET['status']) && $_GET['status'] !== 'all') {
   $search .= '&status=' . $_GET['status'];
 }
 
-// $where => "1 = 1 and posts.category_id = 1 and posts.status = 'published'"
-// $search => "&category=1&status=published"
+
 
 // 处理分页参数
 // =========================================
 
-$size = 2;
+$size = 8;
 $page = empty($_GET['page']) ? 1 : (int)$_GET['page'];
 // 必须 >= 1 && <= 总页数
 

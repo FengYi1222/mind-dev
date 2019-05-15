@@ -20,15 +20,18 @@ $tiezi = xiu_fetch_all("select
 	<link rel="stylesheet" href="../static/assets/css/main.css">
 	<script src="../static/assets/vendors/jquery/jquery.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="../static/assets/css/tzliebiao.css">
+    <script src="../static/assets/js/base.js" type="text/javascript"></script>
 </head>
 <body>
+	<?php $current_page = 'six'; ?>
+	<?php include 'inc/nav.php'; ?>
 	<div class="content clearfix">
 			<div class="main">
 		<div class="fl">
 			<?php foreach ($tiezi as $item): ?>
 				<div class="pinglun">
 					<div class="pl-tupian"><img src="../img/gu.jpeg" alt=""></div>
-					<a href=""><div class="pl-biaoti"><?php echo $item['title'];?></div></a>
+					<a href="/前台页面/admin/f-观看帖子.php?id=<?php echo $item['id'];?>"><div class="pl-biaoti"><?php echo $item['title'];?></div></a>
 					<div><p><?php echo $item['created'];?></p></div>
 					<div class="pl-neirong">
 						<?php echo $item['content'];?>

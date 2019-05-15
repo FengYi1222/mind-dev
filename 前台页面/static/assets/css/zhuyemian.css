@@ -5,6 +5,9 @@
 		.zym {
 			/*margin-top: 75px;*/
 		}
+		.none {
+			display: none;
+		}
 		.content {
 			margin-top: 82px;
 		}
@@ -73,7 +76,12 @@
 			border-radius: 50%;
 		}
 
-
+		.tupian {
+			/*margin-top: 50px;*/
+			height: 200px;
+			width: 100%;
+			background-color: pink;
+		}
 
 		/*热文推荐部分*/
 		.rewen {
@@ -103,8 +111,15 @@
 			border-radius: 25px;
 			
 		}
-
-		.rewen .rewen-nav div:first-child {
+		.rewen .rewen-nav>div {
+			border: 1px solid #fff;
+			border-radius: 25px;
+			/*color: #0b8bff;			*/
+		}
+		.rewen .rewen-nav>div:hover {
+			cursor: pointer;
+		}
+		.rewen .rewen-nav .active {
 			/*margin-left: 50px;*/
 			border: 1px solid #0b8bff;
 			border-radius: 25px;
@@ -112,30 +127,26 @@
 			cursor: pointer;
 
 		}
-		.rewen .rewen-nav div:hover {
-			/*margin-left: 50px;*/
+/*		.rewen .rewen-nav div:hover {
 			border: 1px solid #0b8bff;
 			border-radius: 25px;
 			color: #0b8bff;
 			cursor: pointer;
 
-		}
+		}*/
 
 
 		/*下面的图片部分*/
 		.rewen .rewen-tupian {
 			width: 980px;
 			height: 600px;
-			/*background-color: #1af;*/
 		}
 
 		.rewen .rewen-tupian > div {
 			width: 460px;
 			height: 130px;
-			/*background-color: #fa1;*/
 			float: left;
 			margin-bottom:20px;
-			/*margin-left: 25px;*/
 			margin-right: 25px;
 			background-color: #f9f9fa;
 			border-radius: 10px;
@@ -172,6 +183,7 @@
 			/*展示信息文本的样式*/
 			font-size: 12px;
 		    color: #666;
+		    font-weight: normal;
 		    overflow: hidden;
 		    text-overflow: ellipsis;
 		    display: -webkit-box;

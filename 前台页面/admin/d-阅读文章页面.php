@@ -1,17 +1,23 @@
 <?php 
 require_once '../functions.php';
 
+$id = $_GET['id'];
+
 
 // TODO: 获取文章内容
 $posts = xiu_fetch_all("select
-* from posts  where id = 18;"
+* from posts  where id = ".$id.";"
 );
 // TODO: 根据所选文章来获取对应文章评论内容
 $pinglun = xiu_fetch_all("select
-* from tzpinglun;"
+* from comments where post_id = ".$id.";"
 );
 
 // TODO: 拿到对应的用户的信息  渲染到右边
+
+if(empty($_POST['neirong'])) {
+
+}
 
 ?>
 
@@ -25,18 +31,42 @@ $pinglun = xiu_fetch_all("select
     <link rel="stylesheet" href="../static/assets/css/main.css">
     <script src="../static/assets/vendors/jquery/jquery.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="../static/assets/css/yueduwz.css">
+    <script src="../static/assets/js/base.js" type="text/javascript"></script>
 </head>
 
 <body>
-
+    <?php if($posts[0]['category_id']=='1'){
+        $current_page = 'two';
+        }; ?>
+    <?php if($posts[0]['category_id']=='2'){
+        $current_page = 'tree';
+        }; ?>
+    <?php if($posts[0]['category_id']=='3'){
+        $current_page = 'four';
+        }; ?>
+    <?php if($posts[0]['category_id']=='4'){
+        $current_page = 'five';
+        }; ?>
+    <?php include 'inc/nav.php'; ?>
     <div class="content clearfix mb30">
         <div class="main">
             <div class="left">
                 <div class="left-a">
                     <div class="l-top">
-                        <h3>我是文章标题</h3>
-                        <div class="l-tip">
-                            <span>活动日签</span>
+                        <h3><?php echo $posts[0]['title'];?> </h3>
+                        <div class="l-tip">  
+                            <?php if($posts[0]['category_id']=='1'){
+                                echo "<span>情感交流</span>";
+                            }; ?>
+                            <?php if($posts[0]['category_id']=='2'){
+                                echo "<span>人际交往</span>";
+                            }; ?>
+                            <?php if($posts[0]['category_id']=='3'){
+                                echo "<span>自我提升</span>";
+                            }; ?>
+                            <?php if($posts[0]['category_id']=='4'){
+                                echo "<span>幸福生活</span>";
+                            }; ?>
                         </div>
                         <div class="l-xinxi"><span><?php echo $posts[0]['created'];?></span>
                             <span><?php echo $posts[0]['likes'];?> 赞</span>
@@ -54,11 +84,12 @@ $pinglun = xiu_fetch_all("select
                 </div>
                 <div class="left-h">
                     <h2>回复</h2>
-                    <div class="l-h-shuru">
-                        <img src="../img/gu.jpeg" alt="">
-                        <textarea name="" id="" cols="30" rows="10"></textarea>
-                        <div class="l-btn">提交回复</div>
-                    </div>
+                        <div class="l-h-shuru">
+                            <img src="../img/gu.jpeg" alt="">
+                            <textarea name="neirong" id="" cols="30" rows="10" class="shuchu"></textarea>
+                            <button class="l-btn">提交回复</button>
+                        </div>
+                    <?php if(isset($pinglun)):?>
                     <?php foreach ($pinglun as $item): ?>
                         <div class="l-h-huifu">
                             <div class="l-hf-content">
@@ -73,6 +104,7 @@ $pinglun = xiu_fetch_all("select
                             </div>
                         </div>
                     <?php endforeach;?>
+                <?php endif;?>
                 </div>
             </div>
             <div class="right">
@@ -88,6 +120,52 @@ $pinglun = xiu_fetch_all("select
             </div>
         </div>
     </div>
+
+<script>
+
+
+
+    // 更改状态
+       $('tbody').on('click','.l-btn',function () {
+       // 删除单条数据
+       // 1.拿到数据
+      var $tr = $(this).parent().$('textarea')
+      var id = $tr.data('id')
+       // 2. 发送AJAX请求
+      $.get('/后台页面/admin/api/tiezi-update.php', { id: id }, function(res){
+        if(!res) return
+        $tr.find("td.zhuangtai").html(res.val1)        
+        $tr.find("td.anniu a:first-child").html(res.val2).addClass("btn-info").removeClass("btn-warning")   
+       })
+    })
+
+    $('tbody').on('click','.btn-info',function () {
+       // 删除单条数据
+       // 1.拿到数据
+       // TODO:获取文章内容
+      var $tr = $(".shuchu").html()
+      // TODO：获取当前文章id
+      var $wzid = <?php echo $id;?>;
+      // TODO：获取评论人id
+      var $prid = 1;
+      // TODO：获取当前时间
+      var mydate = new Date();
+      var $date = mydate.toLocaleString();
+      // TODO：获取评论人姓名
+      var $prid = enen;
+
+
+       // 2. 发送AJAX请求
+       // TODO:将所有的数据更新到数据库
+      $.post('/后台页面/admin/api/tiezi-update.php', { id: id }, function(res){
+        if(!res) return
+        // 3.渲染当前页面
+        // TODO：将刚刚更新到数据库中的数据渲染到当前页面
+        $tr.find("td.zhuangtai").html(res.val1)   
+        $tr.find("td.anniu a:first-child").html(res.val2).addClass("btn-warning") .removeClass("btn-info")       
+       })
+    })
+  </script>
 
 </body>
 

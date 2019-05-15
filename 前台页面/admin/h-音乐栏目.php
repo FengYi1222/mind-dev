@@ -8,9 +8,12 @@
     <link rel="stylesheet" href="../static/assets/css/main.css">
     <script src="../static/assets/vendors/jquery/jquery.js" type="text/javascript"></script>
     <link rel="stylesheet" type="text/css" href="../static/assets/css/yinyue.css">
+    <script src="../static/assets/js/base.js" type="text/javascript"></script>
 </head>
 
 <body>
+    <?php $current_page = 'seven'; ?>
+    <?php include 'inc/nav.php'; ?>
     <div class="yinyue clearfix">
         <div class="xiangce">
             <div class="bg-yi">

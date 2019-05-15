@@ -17,6 +17,7 @@
 	height: 500px;
 	margin: 10px auto;
 	margin-bottom: 0;
+	margin-top: 0;
 } 
 .yinyue .xiangce>div {
 	position: absolute;
@@ -42,7 +43,7 @@
 	width: 320px;
 	height: 320px;
 	background-color: #ffff33;
-	top: -10px;
+	top: 5px;
 	left: 520px;
 }
 .yinyue .xiangce>div:last-child {

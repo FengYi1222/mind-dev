@@ -47,7 +47,9 @@ function xiu_fetch_all ($sql) {
 
   mysqli_free_result($query);
   mysqli_close($conn);
-
+  // if(!$result) {
+  //   $result = null;
+  // }
   return $result;
 }
 

@@ -24,7 +24,7 @@ $posts_shenghuo = xiu_fetch_all("select
 // 1.2 TODO: 拿到对应文章的用户的头像
 
 // 第二步
-// 2.1 拿到评论的数据
+// 2.1 拿到帖子的数据
 $tiezi = xiu_fetch_all("select
 * from tiezi limit 6;")
 
@@ -49,34 +49,71 @@ $tiezi = xiu_fetch_all("select
 	<link rel="stylesheet" href="../static/assets/css/main.css">
 	<script src="../static/assets/vendors/jquery/jquery.js" type="text/javascript"></script>
 	<link rel="stylesheet" type="text/css" href="../static/assets/css/zhuyemian.css">
-<!--   <script src="../static/assets/vendors/bootstrap/css/bootstrap.css"></script>
-  <script src="../static/assets/vendors/bootstrap/js/bootstrap.js"></script>l -->
+	<script src="../static/assets/js/base.js" type="text/javascript"></script>
+
 	
 </head>
 <body>
-<!-- TODO: 上面放一张图片 -->
+	<?php $current_page = 'one'; ?>
+	<?php include 'inc/nav.php'; ?>
 
-
-<!-- TODO: tab栏切换效果实现 -->
 <main class="zym">
+
+	<div class="tupian">
+		<img src="" alt="">
+	</div>
+
 	<!-- 热文推荐部分 -->
 	<div class="rewen">
 			<p>热文推荐:</p>
 			<div class="rewen-nav">
-				<div>情感交流</div>
-				<div>人际交往</div>
-				<div>自我提升</div>
-				<div>幸福生活</div>
+				<div class="qinggan-btn active">情感交流</div>
+				<div class="renji-btn">人际交往</div>
+				<div class="tisheng-btn">自我提升</div>
+				<div class="shenghuo-btn">幸福生活</div>
 			</div>
-			<div class="rewen-tupian">
-        <?php foreach ($posts_qinggan as $item): ?>
+
+			<div class="rewen-tupian qinggan">
+        	<?php foreach ($posts_qinggan as $item): ?>
   				<div class="rewen-dange">
   					<div class="rewen-touxiang"><img src="../img/3.jpg" alt=""></div>
-  					<a href="#"><div class="rewen-biaoti"><?php echo $item['title']; ?></div></a>
+  					<a href="/前台页面/admin/d-阅读文章页面.php?id=<?php echo $item['id'];?>"><div class="rewen-biaoti"><?php echo $item['title']; ?></div></a>
   					<div class="rewen-neirong"><p><?php echo $item['content'] ?></p></div>
   				</div>
-        <?php endforeach; ?>
+        	<?php endforeach; ?>
 			</div>
+
+			<div class="rewen-tupian renji">
+        	<?php foreach ($posts_renji as $item): ?>
+  				<div class="rewen-dange">
+  					<div class="rewen-touxiang"><img src="../img/3.jpg" alt=""></div>
+  					<a href="/前台页面/admin/d-阅读文章页面.php?id=<?php echo $item['id'];?>"><div class="rewen-biaoti"><?php echo $item['title']; ?></div></a>
+  					<div class="rewen-neirong"><p><?php echo $item['content'] ?></p></div>
+  				</div>
+        	<?php endforeach; ?>
+			</div>
+
+			<div class="rewen-tupian tisheng">
+        	<?php foreach ($posts_tisheng as $item): ?>
+  				<div class="rewen-dange">
+  					<div class="rewen-touxiang"><img src="../img/3.jpg" alt=""></div>
+  					<a href="/前台页面/admin/d-阅读文章页面.php?id=<?php echo $item['id'];?>"><div class="rewen-biaoti"><?php echo $item['title']; ?></div></a>
+  					<div class="rewen-neirong"><p><?php echo $item['content'] ?></p></div>
+  				</div>
+        	<?php endforeach; ?>
+			</div>
+
+			<div class="rewen-tupian shenghuo">
+        	<?php foreach ($posts_shenghuo as $item): ?>
+  				<div class="rewen-dange">
+  					<div class="rewen-touxiang"><img src="../img/3.jpg" alt=""></div>
+  					<a href="/前台页面/admin/d-阅读文章页面.php?id=<?php echo $item['id'];?>"><div class="rewen-biaoti"><?php echo $item['title']; ?></div></a>
+  					<div class="rewen-neirong"><p><?php echo $item['content'] ?></p></div>
+  				</div>
+        	<?php endforeach; ?>
+			</div>
+
+
 	</div>
 
 	<div class="luntan">
@@ -86,7 +123,7 @@ $tiezi = xiu_fetch_all("select
 				<div class="neirong-w">
 					<div class="neirong-l">
 						<div class="neirong-tupian"><img src="../img/gu.jpeg" alt=""></div>
-						<a href="#"><div class="nr-biaoti"><?php echo $item['title']?></div></a>
+						<a href="/前台页面/admin/f-观看帖子.php?id=<?php echo $item['id'];?>"><div class="nr-biaoti"><?php echo $item['title']?></div></a>
 						<div class="nr-neirong"><?php echo $item['content']?></div>
 					</div>
 					<div class="neirong-r">
@@ -103,7 +140,7 @@ $tiezi = xiu_fetch_all("select
 			<p>幻想城堡(音乐列表)</p>
 			<a href="#"><div class="music-l">舒缓人心情的音乐</div></a>
 			<a href=""><div class="music-r">激动人心的音乐</div></a>
-			<div class="music-b">下面的部分</div>
+			<div class="music-b">进入音乐栏目</div>
 	</div>
 
 </main>
