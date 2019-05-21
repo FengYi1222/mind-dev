@@ -15,16 +15,12 @@
             $('.navbar li a').removeClass('active');
             $(this).addClass('active');
         })
-
-
-
     })
 
     // 主页面
     $(document).ready(function(){
         $('.rewen-tupian').hide();            
-        $('.qinggan').show();
-        console.log('enen');        
+        $('.qinggan').show();      
         $('.rewen-nav .qinggan-btn').click(function(){
             $('.rewen-nav div').removeClass('active');
             $(this).addClass('active');
@@ -48,5 +44,14 @@
             $(this).addClass('active');
             $('.rewen-tupian').hide(); 
             $('.shenghuo').show();
+        })
+    })
+
+    $(document).ready(function(){
+        $('.gktiezi .huida').click(function(){
+            $('.l-h-shuru').toggle();
+        })
+        $('.gktiezi button.l-btn').click(function() {
+            $('.l-h-shuru').hide();
         })
     })

@@ -16,10 +16,21 @@ date_default_timezone_set('PRC');
  * 获取当前登录用户信息，如果没有获取到则自动跳转到登录页面
  * @return [type] [description]
  */
+
 // function xiu_get_current_user () {
 //   if (empty($_SESSION['current_login_user'])) {
 //     // 没有当前登录用户信息，意味着没有登录
-//     header('Location: /后台页面/admin/login.php');
+//     $GLOBALS['denglu'] = '未登录';
+//   }
+//   else {
+//     $GLOBALS['denglu'] = '登录';
+//   }
+//   return $_SESSION['current_login_user'];
+// }
+// function xiu_get_current_user () {
+//   if (empty($_SESSION['current_login_user'])) {
+//     // 没有当前登录用户信息，意味着没有登录
+//     header('Location: /前台页面/admin/登录页面.php');
 //     exit(); // 没有必要再执行之后的代码
 //   }
 //   return $_SESSION['current_login_user'];

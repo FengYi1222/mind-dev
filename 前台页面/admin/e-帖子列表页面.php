@@ -2,6 +2,14 @@
 require_once '../functions.php';
 
 
+if(empty($_SESSION['current_login_user'])){
+	$current_user = null;
+}else {
+	$current_user = $_SESSION['current_login_user'];
+}
+
+// $GLOBALS['userid'] =  $current_user['id'];
+
 // TODO: 获取帖子内容
 $tiezi = xiu_fetch_all("select
 * from tiezi;"
@@ -50,7 +58,7 @@ $tiezi = xiu_fetch_all("select
                             <p>回答数</p></div>
                     </div>
                     <div class="fr-t-b">
-                        <a href=""><div class="fr-t-bl">我要提问</div></a>
+                        <a href="/前台页面/admin/g-帖子发表页面.php"><div class="fr-t-bl">我要提问</div></a>
                         <a href=""><div class="fr-t-br">我的回答</div></a>
                     </div>
                 </div>

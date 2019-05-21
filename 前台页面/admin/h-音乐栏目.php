@@ -1,3 +1,13 @@
+<?php 
+if(empty($_SESSION['current_login_user'])){
+    $current_user = null;
+}else {
+    $current_user = $_SESSION['current_login_user'];
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 

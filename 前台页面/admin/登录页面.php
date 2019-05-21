@@ -51,12 +51,6 @@ function login () {
     return;
   }
 
-  if ($user['power'] !== 'yes') {
-    // 密码不正确
-    $GLOBALS['message'] = '您不是管理员';
-    return;
-  }
-
   // 存一个登录标识
   // $_SESSION['is_logged_in'] = true;
   // 为了后续可以直接获取当前登录用户的信息，这里直接将用户信息放到 session 中
@@ -64,18 +58,12 @@ function login () {
   // $_SESSION['current_login_user_id'] = $user['id'];
 
   // 一切OK 可以跳转
-  header('Location: /后台页面/admin/');
+  header('Location: /前台页面/admin/a-admin.php');
 }
 
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   login();
-}
-
-// 退出功能
-if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['action'] === 'logout') {
-  // 删除了登录标识
-  unset($_SESSION['current_login_user']);
 }
 
 ?>
@@ -110,8 +98,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET' && isset($_GET['action']) && $_GET['act
         <label for="password" class="sr-only">密码</label>
         <input id="password" name="password" type="password" class="form-control" placeholder="密码">
       </div>
-      <button class="btn btn-primary btn-block">管理员登录</button>
-      <a href="/前台页面/admin/登录页面.php" class="fr mt5">返回</a>
+      <button class="btn btn-primary btn-block">登 录</button>
+      <a href="/后台页面/admin/login.php" class="fl mt5">管理员登录</a>
+      <a href="/前台页面/admin/注册页面.php" class="fr mt5">注 册</a>
     </form>
   </div>
   <script src="/后台页面/static/assets/vendors/jquery/jquery.js"></script>

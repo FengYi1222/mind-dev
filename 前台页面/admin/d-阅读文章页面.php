@@ -1,6 +1,12 @@
 <?php 
 require_once '../functions.php';
 
+if(empty($_SESSION['current_login_user'])){
+  $current_user = null;
+}else {
+  $current_user = $_SESSION['current_login_user'];
+}
+
 $id = $_GET['id'];
 
 
@@ -10,7 +16,7 @@ $posts = xiu_fetch_all("select
 );
 // TODO: 根据所选文章来获取对应文章评论内容
 $pinglun = xiu_fetch_all("select
-* from comments where post_id = ".$id.";"
+* from comments where post_id = ".$id." and status = 'approved';"
 );
 
 // TODO: 拿到对应的用户的信息  渲染到右边
@@ -86,7 +92,7 @@ if(empty($_POST['neirong'])) {
                     <h2>回复</h2>
                         <div class="l-h-shuru">
                             <img src="../img/gu.jpeg" alt="">
-                            <textarea name="neirong" id="" cols="30" rows="10" class="shuchu"></textarea>
+                            <textarea name="neirong" id="shuchu" cols="30" rows="10" class="shuchu" placeholder="请输入评论内容"></textarea>
                             <button class="l-btn">提交回复</button>
                         </div>
                     <?php if(isset($pinglun)):?>
@@ -94,7 +100,7 @@ if(empty($_POST['neirong'])) {
                         <div class="l-h-huifu">
                             <div class="l-hf-content">
                                 <img src="../img/gu.jpeg" alt="">
-                                <div class="l-top-left"><span>用户名字</span>：<span><?php echo $item['content']?></span></div>
+                                <div class="l-top-left"><span><?php echo $item['author']?></span>：<span><?php echo $item['content']?></span></div>
                                 <div class="l-top-right">
                                     <span><?php echo $item['likes']?> 赞</span>
                                 </div>
@@ -122,47 +128,46 @@ if(empty($_POST['neirong'])) {
     </div>
 
 <script>
-
-
-
-    // 更改状态
-       $('tbody').on('click','.l-btn',function () {
-       // 删除单条数据
-       // 1.拿到数据
-      var $tr = $(this).parent().$('textarea')
-      var id = $tr.data('id')
-       // 2. 发送AJAX请求
-      $.get('/后台页面/admin/api/tiezi-update.php', { id: id }, function(res){
-        if(!res) return
-        $tr.find("td.zhuangtai").html(res.val1)        
-        $tr.find("td.anniu a:first-child").html(res.val2).addClass("btn-info").removeClass("btn-warning")   
-       })
-    })
-
-    $('tbody').on('click','.btn-info',function () {
+    $('body').on('click','.l-btn',function () {
        // 删除单条数据
        // 1.拿到数据
        // TODO:获取文章内容
-      var $tr = $(".shuchu").html()
+ 
+      var $tr = $("#shuchu").val();
+      if(!$tr.length) {
+        alert("请输入内容")
+        return;
+      }
       // TODO：获取当前文章id
       var $wzid = <?php echo $id;?>;
+
       // TODO：获取评论人id
       var $prid = 1;
-      // TODO：获取当前时间
-      var mydate = new Date();
-      var $date = mydate.toLocaleString();
-      // TODO：获取评论人姓名
-      var $prid = enen;
 
+      // TODO：获取当前时间
+      function getLocalTime(nS) {     
+         return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');    
+      }
+      var $time = Math.round(new Date() / 1000);
+      var $time = getLocalTime($time);
+                
+      // TODO：获取评论人(当前用户名字)姓名
+      var $prname = "测试";
 
        // 2. 发送AJAX请求
        // TODO:将所有的数据更新到数据库
-      $.post('/后台页面/admin/api/tiezi-update.php', { id: id }, function(res){
-        if(!res) return
+      $.post('/前台页面/admin/api/wz-pinglun-u.php', { tr: $tr, wzid: $wzid, prid: $prid,time: $time, prname: $prname }, function(res){
+        if(!res) console.log("effect")
         // 3.渲染当前页面
         // TODO：将刚刚更新到数据库中的数据渲染到当前页面
-        $tr.find("td.zhuangtai").html(res.val1)   
-        $tr.find("td.anniu a:first-child").html(res.val2).addClass("btn-warning") .removeClass("btn-info")       
+        // 检测是否存在这个元素
+        var pinglun = $(".l-h-huifu:first").length;
+
+        if(pinglun){
+           $(".l-h-huifu:first").before('<div class="l-h-huifu"><div class="l-hf-content"><img src="../img/gu.jpeg" alt=""><div class="l-top-left"><span>'+$prname+'</span>：<span>'+$tr+'</span></div><div class="l-top-right"><span>0赞</span></div><div class="l-bottom-left"><span>'+$time+'</span></div></div></div>')
+         }else {
+          $(".l-h-shuru").after('<div class="l-h-huifu"><div class="l-hf-content"><img src="../img/gu.jpeg" alt=""><div class="l-top-left"><span>'+$prname+'</span>：<span>'+$tr+'</span></div><div class="l-top-right"><span>0赞</span></div><div class="l-bottom-left"><span>'+$time+'</span></div></div></div>')
+         } 
        })
     })
   </script>

@@ -23,17 +23,24 @@
 			<div class="search">
 				
 			</div>	
-			<div class="avatar-container">
+
+			<?php if(!$current_user): ?>
+				<a href="/前台页面/admin/登录页面.php" class="fr">登录</a><a href="/前台页面/admin/注册页面.php" class="fr">注册/</a>
+			<?php else: ?>
+				<div class="avatar-container">
 				<img src="" alt="">
-				<div class="show-list ">
+				<div class="show-list">
 					<ul >
-						<il class="list-item"><a href="javascript:;">管理中心</a></il>
-						<il class="list-item"><a href="javascript:;">个人主页</a></il>
-						<il class="list-item"><a href="javascript:;">消息提示</a></il>
-						<il class="list-item"><a href="javascript:;">切换账号</a></il>
-						<il class="list-item"><a href="javascript:;">退出</a></il>
+						<li class="list-item"><a href="javascript:;">管理中心</a></li>
+						<li class="list-item"><a href="javascript:;">个人主页</a></li>
+						<li class="list-item"><a href="javascript:;">消息提示</a></li>
+						<li class="list-item"><a href="javascript:;">切换账号</a></li>
+						<a href="/前台页面/admin/api/tuichu.php?action=logout"><li class="list-item">退出</li></a>
+
 					</ul>
 				</div>
 			</div>
+			<?php endif; ?>
+			
 		</div> 
 		</div>

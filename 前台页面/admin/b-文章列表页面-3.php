@@ -2,6 +2,12 @@
 
 require_once '../functions.php';
 
+if(empty($_SESSION['current_login_user'])){
+    $current_user = null;
+}else {
+    $current_user = $_SESSION['current_login_user'];
+}
+
 // xiu_get_current_user();
 // 第一步：
 // 1.1 拿到文章的数据 根据不同条件
