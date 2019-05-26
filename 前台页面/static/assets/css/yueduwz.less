@@ -38,7 +38,7 @@ body {
 					}
 					.l-xinxi {
 						margin-left: 30px;
-						span {
+						.biaoshi {
 							display: inline-block;
 							// float: left;
 							// width: 150px;
@@ -47,17 +47,17 @@ body {
 							color: #999;
 							padding-left: 18px;
 						}
-						span:nth-child(2) {
+						.biaoshi:nth-child(2) {
 							// width: 45px;
 							// text-align: right;
 							background: #fff url("../../../img/点赞.png") 0 1px no-repeat;
 						}
-						span:nth-child(3) {
+						.biaoshi:nth-child(3) {
 							// width: 60px;
 							// text-align: right;
 							background: #fff url("../../../img/评论.png") 0 2px no-repeat;
 						}
-						span:nth-child(4) {
+						.biaoshi:nth-child(4) {
 							// width: 75px;
 							// text-align: right;
 							background: #fff url("../../../img/观看数.png") 0 1.5px no-repeat;
@@ -231,7 +231,7 @@ body {
 	.right {
 		width: 360px;
 		// height: 800px;
-		padding-bottom:620px;
+		padding-bottom:60px;
 		background-color: #fff;
 		float: right;
 		border-radius: 20px;
@@ -256,13 +256,14 @@ body {
 		.r-fenlei {
 			span {
 				margin-top: 30px;
-				display: inline-block;
-				width: 116px;
+				display: block;
+				width: 50%;
 				text-align: center;
-
+				float: left;
 				font-size: 16px;
 			    color: #0b8bff;
 			    line-height: 14px;
+			    vertical-align: middle;
 			}
 		}
 	}

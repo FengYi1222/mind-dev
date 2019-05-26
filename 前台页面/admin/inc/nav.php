@@ -28,7 +28,7 @@
 				<a href="/前台页面/admin/登录页面.php" class="fr">登录</a><a href="/前台页面/admin/注册页面.php" class="fr">注册/</a>
 			<?php else: ?>
 				<div class="avatar-container">
-				<img src="" alt="">
+				<img src="<?php echo $current_user['avatar']?>" alt="">
 				<div class="show-list">
 					<ul >
 						<li class="list-item"><a href="javascript:;">管理中心</a></li>

@@ -33,11 +33,12 @@ body {
 				margin: 20px auto;
 				margin-bottom: 0;
 				.fl-ti {
-					width: 30px;
-					height: 30px;
+					width: 45px;
+					height: 45px;
 					background-color: skyblue;
 					margin-right: 20px;
 					float: left;
+					border-radius: 8px;
 				}
 				.fl-tt {
 					font-size: 20px;
@@ -106,7 +107,7 @@ body {
 				height: 94px;
 				margin-right: 4px;
 				float: left;
-				span:nth-child(1) {
+				span.baobao {
 					font-size: 20px;
 					color: #333;
 					font-weight: 700;				
@@ -128,7 +129,7 @@ body {
 				height: 94px;
 				margin-right: 3px;
 				float: left;
-				span:nth-child(1) {
+				span.shoucang {
 					font-size: 20px;
 					color: #333;
 					font-weight: 700;				
@@ -150,7 +151,7 @@ body {
 				height: 94px;
 				margin-right: 3px;
 				float: left;
-				span:nth-child(1) {
+				span.huida {
 					font-size: 20px;
 					color: #333;
 					font-weight: 700;				
@@ -224,11 +225,12 @@ body {
 				margin-top: 40px;
 				margin-bottom: 40px;
 				.fl-ti {
-					width: 30px;
-					height: 30px;
+					width: 45px;
+					height: 45px;
 					background-color: skyblue;
 					margin: 0px 20px 20px 40px;
-					float: left;				
+					float: left;
+					border-radius: 8px;				
 				}
 				.fl-tn {
 					line-height: 30px;
@@ -315,12 +317,16 @@ body {
 					color: #fff;
 				}
 				.fr-t-bl {
-					width: 100px;
-					height: 40px;
-					background-color: #0b8bff;
-					float: left;
-					margin-left: 25px;
-					border-radius: 10px;
+					 // width: 100px;
+                    width: calc(100% - 50px);
+
+                    height: 40px;
+                    background-color: #0b8bff;
+                    // float: left;
+                    // margin-left: 25px;
+                    margin: 0 auto;
+                    border-radius: 10px;
+                    margin-top: 60px;
 				}
 				.fr-t-br {
 					width: 100px;

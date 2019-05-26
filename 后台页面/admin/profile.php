@@ -24,8 +24,8 @@ function edit_users () {
   $nickname = empty($_POST['nickname']) ? $current_edit_users['nickname'] : $_POST['nickname'];
   // 同步数据
   $current_edit_users['nickname'] = $nickname;
-  $content = empty($_POST['content']) ? $current_edit_users['content'] : $_POST['content'];
-  $current_edit_users['content'] = $content;
+  $jianjie = empty($_POST['jianjie']) ? $current_edit_users['jianjie'] : $_POST['jianjie'];
+  $current_edit_users['jianjie'] = $jianjie;
 
   $password = empty($_POST['password']) ? $current_edit_users['password'] : $_POST['password'];
   $current_edit_users['password'] = $password;
@@ -39,7 +39,7 @@ function edit_users () {
   }
 
 
-  $rows = xiu_execute("update users set content = '{$content}', nickname = '{$nickname}', password='{$password}', avatar = '{$avatar}' where id = {$id}");
+  $rows = xiu_execute("update users set jianjie = '{$jianjie}', nickname = '{$nickname}', password='{$password}', avatar = '{$avatar}' where id = {$id}");
 
   $GLOBALS['success'] = $rows > 0;
   $GLOBALS['message'] = $rows <= 0 ? '更新失败！' : '更新成功！';
@@ -137,9 +137,9 @@ $users = xiu_fetch_all('select * from users;');
           </div>
         </div>
         <div class="form-group">
-          <label for="content" class="col-sm-3 control-label">简介</label>
+          <label for="jianjie" class="col-sm-3 control-label">简介</label>
           <div class="col-sm-6">
-            <textarea id="content" name="content"class="form-control" placeholder="<?php echo $current_edit_users['content']; ?>" cols="30" rows="6"></textarea>
+            <textarea id="jianjie" name="jianjie"class="form-control" placeholder="<?php echo $current_edit_users['jianjie']; ?>" cols="30" rows="6"></textarea>
           </div>
         </div>
         <div class="form-group">

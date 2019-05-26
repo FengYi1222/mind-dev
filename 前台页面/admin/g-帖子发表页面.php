@@ -5,13 +5,22 @@ if(empty($_SESSION['current_login_user'])){
     $current_user = null;
 }else {
     $current_user = $_SESSION['current_login_user'];
+        $GLOBALS['$prid'] = $current_user['id'];
+    // $GLOBALS['user_id'] = $current_user['id'];
+    // $GLOBALS['user_email'] = $current_user['email'];
+    // $GLOBALS['user_nickname'] = $current_user['nickname'];
+    // $GLOBALS['user_avatar'] = $current_user['avatar'];
+    // $GLOBALS['user_content'] = $current_user['content'];
+    // $GLOBALS['user_status'] = $current_user['status'];
+    // $GLOBALS['user_power'] = $current_user['power'];
 }
-
 
 function add() {
   //1. 接受并校验
   //2. 持久化
   //3. 响应
+
+    var_dump($GLOBALS['$prid']);
     $GLOBALS['message'] = '';
   if (empty($_POST['title'])) {
     $GLOBALS['message'] = '请输入文章标题  你看我在干啥';
@@ -35,6 +44,12 @@ function add() {
     $GLOBALS['message'] = '查询过程失败';
     return;
   }
+
+$rows = xiu_execute("update users set tzct = tzct + 1 where id = {$GLOBALS['$prid']};");
+    if(!$rows){
+        echo "数据库写入失败";
+    }
+
   $affected_rows = mysqli_affected_rows($conn);
   header('Location: /前台页面/admin/e-帖子列表页面.php');
 }
@@ -71,7 +86,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <?php endif ?>
             <div class="tiwen">
                 <div class="title">
-                    <span class="biaoti">发布评论</span>
+                    <span class="biaoti">发布帖子</span>
                     <span class="biaoqian">即时倾诉，倾听你的故事</span>
                 </div>
                 <div class="shuru">
@@ -98,17 +113,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             <div class="fr-top">
                 <div class="fr-t-t">
                     <div class="fr-t-tl">
-                        <p>0</p>
+                        <p><?php echo $current_user['tzct']?></p>
                         <p>提问数</p>
                     </div>
                     <div class="fr-t-tr">
-                        <p>0</p>
+                        <p><?php echo $current_user['tzch']?></p>
                         <p>回答数</p>
                     </div>
                 </div>
                 <div class="fr-t-b">
                     <a href=""><div class="fr-t-bl">我要提问</div></a>
-                    <a href=""><div class="fr-t-br">我的回答</div></a>
+                    <!-- <a href=""><div class="fr-t-br">我的回答</div></a> -->
                 </div>
             </div>
             <div class="fr-bottom"></div>

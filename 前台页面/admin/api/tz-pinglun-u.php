@@ -24,8 +24,17 @@ $tr = $_POST['tr'];
 // 所评论帖子的id
 $tzid = $_POST['tzid'];
 
-
-
+// 更新评论数
+$rows = xiu_execute("update users set tzch = tzch + 1 where id = {$prid};");
+if(!$rows){
+	echo "数据库写入失败";
+}
+// 更新点赞数
+$rows = xiu_execute("update tiezi set likes = likes + 1 where id = {$tzid};");
+if(!$rows){
+	echo "数据库写入失败";
+}
+// 更新数据
 $rows = xiu_execute("insert into tzpinglun (content,tiezi_id,user_id,likes) values ('{$tr}','{$tzid}','{$prid}',0);");
 
 if(!$rows){

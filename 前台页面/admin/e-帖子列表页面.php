@@ -6,13 +6,19 @@ if(empty($_SESSION['current_login_user'])){
 	$current_user = null;
 }else {
 	$current_user = $_SESSION['current_login_user'];
+	// $GLOBALS['user_id'] = $current_user['id'];
+	// $GLOBALS['user_email'] = $current_user['email'];
+	// $GLOBALS['user_nickname'] = $current_user['nickname'];
+	// $GLOBALS['user_avatar'] = $current_user['avatar'];
+	// $GLOBALS['user_content'] = $current_user['content'];
+	// $GLOBALS['user_status'] = $current_user['status'];
+	// $GLOBALS['user_power'] = $current_user['power'];
 }
-
 // $GLOBALS['userid'] =  $current_user['id'];
 
 // TODO: 获取帖子内容
 $tiezi = xiu_fetch_all("select
-* from tiezi;"
+* from tiezi order by tiezi.id desc;"
 );
 
 
@@ -53,13 +59,13 @@ $tiezi = xiu_fetch_all("select
             <div class="fr">
                 <div class="fr-top">
                     <div class="fr-t-t">
-                        <div class="fr-t-tl"><p>0</p><p>提问数</p></div>
-                        <div class="fr-t-tr"><p>0</p>
+                        <div class="fr-t-tl"><p><?php echo $current_user['tzct']?></p><p>提问数</p></div>
+                        <div class="fr-t-tr"><p><?php echo $current_user['tzch']?></p>
                             <p>回答数</p></div>
                     </div>
                     <div class="fr-t-b">
                         <a href="/前台页面/admin/g-帖子发表页面.php"><div class="fr-t-bl">我要提问</div></a>
-                        <a href=""><div class="fr-t-br">我的回答</div></a>
+<!--                         <a href=""><div class="fr-t-br">我的回答</div></a> -->
                     </div>
                 </div>
                 <div class="fr-bottom"></div>

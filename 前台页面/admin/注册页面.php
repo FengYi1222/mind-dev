@@ -2,50 +2,73 @@
 
 require_once '../functions.php';
 
-// function edit_users () {
-//   global $current_edit_users;
+function add() {
+  
+  var_dump($_FILES['avatar']);
 
-//   // 接收并保存
-//   $id = $current_edit_users['id'];
-
-//   $avatar = $_POST["avatar"];
-//   $nick = $_POST['nickname'];
-//   // var_dump($urla);
-//   // var_dump($nick);
-
-//   $nickname = empty($_POST['nickname']) ? $current_edit_users['nickname'] : $_POST['nickname'];
-//   // 同步数据
-//   $current_edit_users['nickname'] = $nickname;
-//   $content = empty($_POST['content']) ? $current_edit_users['content'] : $_POST['content'];
-//   $current_edit_users['content'] = $content;
-
-//   $password = empty($_POST['password']) ? $current_edit_users['password'] : $_POST['password'];
-//   $current_edit_users['password'] = $password;
-
-//   $avatar = empty($_POST['avatar']) ? $current_edit_users['avatar'] : $_POST['avatar'];
-//   $current_edit_users['avatar'] = $avatar;
-
-//   if($_POST['password'] !== $_POST['password1']) {
-//     $GLOBALS['message'] = '密码出错';
-//     return;
-//   }
-
-//   $rows = xiu_execute("update users set content = '{$content}', nickname = '{$nickname}', password='{$password}', avatar = '{$avatar}' where id = {$id}");
-
-//   $GLOBALS['success'] = $rows > 0;
-//   $GLOBALS['message'] = $rows <= 0 ? '更新失败！' : '更新成功！';
-// }
-
-  // echo $current_edit_users['email']; 
-  // echo $current_edit_users['avatar']; 
-
-  // if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-  //   edit_users(); 
-  // }
+  if (empty($_POST['email'])) {
+    $GLOBALS['message'] = '请填写邮箱  你看我在干啥';
+    return;
+  }
+  if (empty($_POST['password'])) {
+    $GLOBALS['message'] = '请填写密码';
+    return;
+  }
+  if (empty($_POST['password1'])) {
+    $GLOBALS['message'] = '请填写确认密码';
+    return;
+  }
+  if ($_POST['password'] !== $_POST['password1'] ) {
+    $GLOBALS['message'] = '密码与确认密码不一致';
+    return;
+  }
+  if (empty($_POST['nickname'])) {
+    $GLOBALS['message'] = '请输入昵称';
+    return;
+  }
+  if (empty($_POST['jianjie'])) {
+    $GLOBALS['message'] = '请输入简介';
+    return;
+  }
 
 
-// 查询全部的分类数据
+  $email = $_POST['email'];
+  $password = $_POST['password'];
+  $nickname = $_POST['nickname'];
+  $jianjie = $_POST['jianjie'];
 
+
+      $urla = $_FILES['avatar'];
+      var_dump($urla['error']);
+      if ($urla['error'] !== 0){
+        $GLOBALS['message'] = 'nicuola';
+        echo $urla['error'];
+        return;
+      }
+      // 校验文件类型大小
+      $ext = pathinfo($urla['name'], PATHINFO_EXTENSION);
+      // 移动文件到网站范围之内
+      $target = '../static/uploads/img-' . uniqid() . '.' . $ext;
+      if(!move_uploaded_file($urla['tmp_name'], $target)) {
+      $GLOBALS['message'] = '上传成功';
+      }
+
+
+  // 当客户端提交过来的完整的表单信息就应该开始对其进行数据校验
+  $conn = mysqli_connect(XIU_DB_HOST, XIU_DB_USER, XIU_DB_PASS, XIU_DB_NAME);
+  if (!$conn) {
+    exit('<h1>连接数据库失败</h1>');
+  }
+
+  $query = xiu_execute("insert into users (email,password,nickname,jianjie,avatar,power) values ('{$email}','{$password}','{$nickname}','{$jianjie}','{$target}','no');");
+
+      header('Location: /前台页面/admin/登录页面.php');
+}
+
+  if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+      add(); 
+
+  }
 
 
 ?>
@@ -64,7 +87,9 @@ require_once '../functions.php';
   <script>NProgress.start()</script>
 
   <div class="main">
-
+    <?php if (isset($message)): ?>
+    <?php echo $message;?>
+    <?php endif;?>
     <div class="container-fluid">
       <div class="page-title">
         <h1>用户注册</h1>
@@ -75,7 +100,7 @@ require_once '../functions.php';
           <label class="col-sm-3 control-label">头像</label>
           <div class="col-sm-6">
             <label class="form-image">
-              <input id="avatar" type="file">
+              <input id="avatar" type="file" name="avatar">
               <img src="">
               <input type="hidden" name="avatar">
               <i class="mask fa fa-upload"></i>
@@ -112,14 +137,14 @@ require_once '../functions.php';
           </div>
         </div>
         <div class="form-group">
-          <label for="content" class="col-sm-3 control-label">简介</label>
+          <label for="jianjie" class="col-sm-3 control-label">简介</label>
           <div class="col-sm-6">
-            <textarea id="content" name="content"class="form-control" placeholder="" cols="30" rows="6"></textarea>
+            <textarea id="jianjie" name="jianjie"class="form-control" placeholder="" cols="30" rows="6"></textarea>
           </div>
         </div>
         <div class="form-group">
           <div class="col-sm-offset-3 col-sm-6">
-            <button id="fasong" type="submit" class="btn btn-primary">更新</button>
+            <button id="fasong" type="submit" class="btn btn-primary">注册</button>
             <!-- <a class="btn btn-link" href="password-reset.html">修改密码</a> -->
           </div>
         </div>

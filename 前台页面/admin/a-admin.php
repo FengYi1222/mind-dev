@@ -6,8 +6,15 @@ if(empty($_SESSION['current_login_user'])){
 	$current_user = null;
 }else {
 	$current_user = $_SESSION['current_login_user'];
+	// $GLOBALS['user_id'] = $current_user['id'];
+	// $GLOBALS['user_email'] = $current_user['email'];
+	// $GLOBALS['user_nickname'] = $current_user['nickname'];
+	// $GLOBALS['user_avatar'] = $current_user['avatar'];
+	// $GLOBALS['user_content'] = $current_user['jianjie'];
+	// $GLOBALS['user_status'] = $current_user['status'];
+	// $GLOBALS['user_power'] = $current_user['power'];
 }
-
+// echo $GLOBALS['user_content'];
 // xiu_get_current_user();
 // 第一步：
 // 1.1 拿到文章的数据
